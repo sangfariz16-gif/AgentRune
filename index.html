@@ -6,8 +6,8 @@
     <meta name="color-scheme" content="dark" />
     <meta name="theme-color" content="#06090d" />
     <link rel="icon" href="data:," />
-    <title>AgentRune — 4,444 Rune Stones | Preview</title>
-    <meta name="description" content="AgentRune: 4,444 rune stones on BNB Chain. First mint free, agent-only, 40 $RUNE per mint. Preview — mint coming soon." />
+    <title>AgentRune — 4,444 Rune Stones | Mint Live</title>
+    <meta name="description" content="AgentRune: 4,444 rune stones on BNB Chain. Mint is LIVE — first mint free, agent-only, 40 $RUNE per mint." />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Zen+Kaku+Gothic+New:wght@500;700;900&display=swap" rel="stylesheet" />
@@ -144,13 +144,14 @@
         position:relative; z-index:2; text-align:center;
         padding:clamp(72px,14vh,130px) 0 clamp(56px,9vh,84px);
       }
-      .preview-chip{
+      .live-chip{
         display:inline-flex; align-items:center; gap:8px;
         border:1px solid var(--gold-deep); color:var(--gold);
         background:rgba(10,8,2,.55); border-radius:999px;
         font-size:13px; font-weight:700; letter-spacing:.06em; padding:6px 14px;
       }
-      .preview-chip::before{ content:""; width:8px; height:8px; border-radius:50%; background:var(--gold); box-shadow:0 0 10px var(--gold); }
+      .live-chip::before{ content:""; width:8px; height:8px; border-radius:50%; background:#2ee06f; box-shadow:0 0 10px #2ee06f; animation:live-pulse 1.8s ease-in-out infinite; }
+      @keyframes live-pulse{ 0%,100%{ opacity:1; } 50%{ opacity:.45; } }
       .hero h1{
         font-family:"Cinzel",serif; font-weight:900;
         font-size:clamp(36px,11vw,104px);
@@ -309,7 +310,7 @@
       /* ---------- Mint status ---------- */
       .mint-panel{ border:1px solid var(--line); border-radius:18px; background:var(--panel); padding:20px; }
       .mint-status{ display:flex; align-items:center; gap:10px; font-weight:900; font-size:17px; }
-      .status-dot{ width:11px; height:11px; border-radius:50%; background:#e0a23f; box-shadow:0 0 10px #e0a23f; }
+      .status-dot{ width:11px; height:11px; border-radius:50%; background:#2ee06f; box-shadow:0 0 10px #2ee06f; }
       .mint-counter{ font-family:"Cinzel",serif; font-size:clamp(34px,8vw,52px); font-weight:700; margin:14px 0 4px; }
       .mint-counter small{ font-size:.45em; color:var(--ink-faint); }
       .progress{ height:10px; background:#05080b; border:1px solid var(--line); border-radius:99px; overflow:hidden; margin:12px 0 26px; }
@@ -329,6 +330,15 @@
       .mint-action .btn{ width:100%; font-size:16px; }
       .mint-note{ color:var(--ink-faint); font-size:13.5px; margin:0; }
 
+      .addr-val{ display:block; color:var(--ink); margin:2px 0 6px; }
+      .bsc-link{ display:inline-flex; align-items:center; gap:5px; font-family:"Zen Kaku Gothic New",sans-serif; font-size:12.5px; font-weight:700; letter-spacing:.04em; color:var(--cyan); text-decoration:none; border:1px solid var(--cyan-dim); border-radius:7px; padding:4px 10px; }
+      .bsc-link:hover{ background:rgba(63,210,234,.1); }
+      .wallet-row{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-top:18px; }
+      .wallet-status{ color:var(--ink-dim); font-size:13.5px; word-break:break-all; }
+      .mint-msg{ margin:0; font-size:14px; min-height:1.4em; color:var(--ink-dim); }
+      .mint-msg.ok{ color:#2ee06f; } .mint-msg.err{ color:#ff8f7a; }
+      .mint-msg a{ color:var(--cyan); }
+
       /* ---------- Contracts ---------- */
       .contract-grid{ display:grid; gap:14px; }
       .contract-card{ background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); padding:22px; display:flex; flex-direction:column; gap:12px; }
@@ -339,7 +349,7 @@
       .contract-card.gold .contract-icon{ color:var(--gold); border-color:var(--gold-deep); }
       .contract-name{ font-family:"Cinzel",serif; font-weight:700; font-size:19px; letter-spacing:.04em; line-height:1.3; }
       .contract-std{ color:var(--ink-faint); font-size:12.5px; letter-spacing:.08em; font-weight:700; }
-      .contract-status{ margin-left:auto; font-size:11px; font-weight:900; letter-spacing:.07em; border:1px solid #8a6420; color:#e0a23f; border-radius:999px; padding:3px 10px; white-space:nowrap; }
+      .contract-status{ margin-left:auto; font-size:11px; font-weight:900; letter-spacing:.07em; border:1px solid #1d7e4f; color:#2ee06f; border-radius:999px; padding:3px 10px; white-space:nowrap; }
       .contract-desc{ color:var(--ink-dim); font-size:14px; margin:0; }
       .contract-addr{ font-family:ui-monospace,Menlo,monospace; font-size:12.5px; color:var(--ink-faint); background:#05080b; border:1px solid var(--line); border-radius:8px; padding:9px 12px; word-break:break-all; }
       .contract-addr b{ color:var(--ink-dim); font-family:"Zen Kaku Gothic New",sans-serif; letter-spacing:.06em; font-size:11.5px; display:block; margin-bottom:2px; }
@@ -510,7 +520,7 @@
     <div class="hero" id="top">
       <div class="hero-bg"><img src="assets/hero.webp" alt="シアンに光る回路状のルーンが刻まれた古代のルーンストーン" fetchpriority="high" /></div>
       <div class="wrap hero-in">
-        <span class="preview-chip" data-i18n="hero_chip">プレビュー — ミントは近日開始</span>
+        <span class="live-chip" data-i18n="hero_chip">MINT LIVE — ミント受付中</span>
         <h1>AGENT<span class="rune-part">RUNE</span></h1>
         <p class="hero-tag" data-i18n="hero_tag">古代のルーンが目覚める。</p>
         <p class="hero-sub" data-i18n="hero_sub">遺跡の奥深くで眠る4,444個のルーンストーン。初回ミントは無料のデッキ抽選で、ミントのたびに40 $RUNEを獲得。最上位のPrimeは3,000 $RUNEで引き換える唯一の1点ものです。</p>
@@ -704,7 +714,7 @@
           <div>
             <p style="margin:0 0 8px; font-weight:700;" data-i18n="token_body1">ミントするたびに40 $RUNEを獲得。無料の初回ミントも対象です。</p>
             <p style="margin:0; color:var(--ink-dim);" data-i18n="token_body2">30体ミントすれば1ウォレットで最大1,200 $RUNE。貯めた $RUNE はすべてバーンして使います — 下記のユーティリティがコントラクトに実装済みです。</p>
-            <p class="token-note" data-i18n="token_note">※ $RUNE / ARUNE は仮称です（シンボルは未確定）。</p>
+            <p class="token-note" data-i18n="token_note">※ $RUNE（BEP-20）と AgentRune / ARUNE（BEP-721）はBNB Chainメインネットにデプロイ済みです。アドレスは下記のコントラクト欄をご覧ください。</p>
           </div>
         </div>
         <div class="toke-grid">
@@ -740,14 +750,14 @@
           <div class="step"><div class="step-num">2</div><div><h3 data-i18n="mstep2_t">購入する — buy(tokenId)</h3><p data-i18n="mstep2_b">表示価格ちょうどのBNBで購入。支払いはその場で分配されます：ロイヤリティ5%がクリエイターへ、残り95%が売り手へ。手数料は0%です。</p></div></div>
           <div class="step"><div class="step-num">3</div><div><h3 data-i18n="mstep3_t">エージェント経由でも取引可能</h3><p data-i18n="mstep3_b">出品・購入・キャンセルはすべてオンチェーン関数です。エージェントに tokenId と価格を伝えるだけで実行できます。出品一覧は getListedIds() で誰でも確認できます。</p></div></div>
         </div>
-        <h3 style="margin:0 0 14px; font-size:19px;" data-i18n="listing_title">出品プレビュー</h3>
+        <h3 style="margin:0 0 14px; font-size:19px;" data-i18n="listing_title">出品</h3>
         <div class="listing-grid">
-          <article class="listing-card"><img src="assets/ember.webp" alt="Emberのルーンストーン" loading="lazy" /><div class="listing-info"><span class="listing-name">Ember <span class="tier-chip t-dormant">DORMANT</span></span><span class="listing-price"><span data-i18n="listing_price">価格</span> <b>— BNB</b></span><button type="button" class="listing-btn" disabled data-i18n="listing_btn">近日公開</button></div></article>
-          <article class="listing-card"><img src="assets/storm.webp" alt="Stormのルーンストーン" loading="lazy" /><div class="listing-info"><span class="listing-name">Storm <span class="tier-chip t-awakened">AWAKENED</span></span><span class="listing-price"><span data-i18n="listing_price2">価格</span> <b>— BNB</b></span><button type="button" class="listing-btn" disabled data-i18n="listing_btn2">近日公開</button></div></article>
-          <article class="listing-card"><img src="assets/solar.webp" alt="Solarのルーンストーン" loading="lazy" /><div class="listing-info"><span class="listing-name">Solar <span class="tier-chip t-empowered">EMPOWERED</span></span><span class="listing-price"><span data-i18n="listing_price3">価格</span> <b>— BNB</b></span><button type="button" class="listing-btn" disabled data-i18n="listing_btn3">近日公開</button></div></article>
-          <article class="listing-card"><img src="assets/void.webp" alt="Voidのルーンストーン" loading="lazy" /><div class="listing-info"><span class="listing-name">Void <span class="tier-chip t-ascended">ASCENDED</span></span><span class="listing-price"><span data-i18n="listing_price4">価格</span> <b>— BNB</b></span><button type="button" class="listing-btn" disabled data-i18n="listing_btn4">近日公開</button></div></article>
+          <article class="listing-card"><img src="assets/ember.webp" alt="Emberのルーンストーン" loading="lazy" /><div class="listing-info"><span class="listing-name">Ember <span class="tier-chip t-dormant">DORMANT</span></span><span class="listing-price"><span data-i18n="listing_price">価格</span> <b>— BNB</b></span><button type="button" class="listing-btn" disabled data-i18n="listing_btn">未出品</button></div></article>
+          <article class="listing-card"><img src="assets/storm.webp" alt="Stormのルーンストーン" loading="lazy" /><div class="listing-info"><span class="listing-name">Storm <span class="tier-chip t-awakened">AWAKENED</span></span><span class="listing-price"><span data-i18n="listing_price2">価格</span> <b>— BNB</b></span><button type="button" class="listing-btn" disabled data-i18n="listing_btn2">未出品</button></div></article>
+          <article class="listing-card"><img src="assets/solar.webp" alt="Solarのルーンストーン" loading="lazy" /><div class="listing-info"><span class="listing-name">Solar <span class="tier-chip t-empowered">EMPOWERED</span></span><span class="listing-price"><span data-i18n="listing_price3">価格</span> <b>— BNB</b></span><button type="button" class="listing-btn" disabled data-i18n="listing_btn3">未出品</button></div></article>
+          <article class="listing-card"><img src="assets/void.webp" alt="Voidのルーンストーン" loading="lazy" /><div class="listing-info"><span class="listing-name">Void <span class="tier-chip t-ascended">ASCENDED</span></span><span class="listing-price"><span data-i18n="listing_price4">価格</span> <b>— BNB</b></span><button type="button" class="listing-btn" disabled data-i18n="listing_btn4">未出品</button></div></article>
         </div>
-        <p class="market-note" data-i18n="market_note">現在出品はまだありません — 上記は表示レイアウトのプレビューで、実際の出品ではありません。マーケットはコントラクトのデプロイ後にオープンします。Element Marketへの掲載もローンチ時に案内します。</p>
+        <p class="market-note" data-i18n="market_note">マーケットプレイスは稼働中です（コントラクトアドレスは下記参照）。上記のカードは代表的なアートワークの表示例で、価格は実際の出品価格ではありません。最新の出品状況はコントラクトの getListedIds() でどなたでも確認できます。</p>
       </div>
     </section>
 
@@ -756,13 +766,13 @@
       <div class="wrap">
         <div class="sec-rule"></div>
         <h2 class="sec-title" data-i18n="contract_title">スマートコントラクト</h2>
-        <p class="sec-sub" data-i18n="contract_sub">AgentRuneは3つのコントラクトで構成されます。ソースコードは完成し、テスト11/11を通過済み。まだデプロイはされておらず、アドレスはローンチ時にここへ公開されます。</p>
+        <p class="sec-sub" data-i18n="contract_sub">AgentRuneは3つのコントラクトで構成されます。いずれもBNB Chainメインネットへデプロイ済みで、ミントは受付中です（テスト11/11通過）。各アドレスはBscScanで確認できます。</p>
         <div class="contract-grid">
           <article class="contract-card cyan">
-            <div class="contract-top"><div class="contract-icon">◈</div><div><div class="contract-name">AgentRune</div><div class="contract-std">NFT · BEP-721 / ERC-2981</div></div><span class="contract-status" data-i18n="status_ready">テスト済 · 未デプロイ</span></div>
+            <div class="contract-top"><div class="contract-icon">◈</div><div><div class="contract-name">AgentRune</div><div class="contract-std">NFT · BEP-721 / ERC-2981</div></div><span class="contract-status" data-i18n="status_ready">LIVE · デプロイ済</span></div>
             <p class="contract-desc" data-i18n="c1_desc">シンボル ARUNE。デッキ抽選ミントの中核コントラクト。供給はデッキ4,443体 + Prime 1体（ID 4444）。SPACE ID Agent IDによるエージェント専用ゲート、価格ラダー、ロイヤリティ5%を実装。</p>
             <ul class="fn-list">
-              <li>mint(quantity)<span data-i18n="c1_f1">BNBミント（ラダー価格）</span></li>
+              <li>mint(quantity)<span data-i18n="c1_f1">BNBミント（ラダー価格 · 初回は自動で無料）</span></li>
               <li>mintWithToken(quantity)<span>200 $RUNE / <span data-i18n="per_mint5">体</span> · <span data-i18n="c1_f2">最大3体</span></span></li>
               <li>burn(tokenId)<span data-i18n="c1_f3">ティア別に $RUNE へ還元</span></li>
               <li>upgrade(id1, id2, id3)<span data-i18n="c1_f4">3体 + $RUNE → 上位1体</span></li>
@@ -770,10 +780,10 @@
               <li>quoteBulk(wallet, qty)<span data-i18n="c1_f6">合計価格の事前確認</span></li>
               <li>rarityOf(tokenId)<span data-i18n="c1_f7">デッキビットマップから判定</span></li>
             </ul>
-            <div class="contract-addr"><b data-i18n="addr_label">コントラクトアドレス</b><span data-i18n="addr_tba">デプロイ後に公開（TBA）</span></div>
+            <div class="contract-addr"><b data-i18n="addr_label">コントラクトアドレス</b><span class="addr-val">0xc1fc0bB36D2Be928809e4B3E6Aa94B3dd2946f53</span><a class="bsc-link" href="https://bscscan.com/address/0xc1fc0bB36D2Be928809e4B3E6Aa94B3dd2946f53" target="_blank" rel="noopener">BscScan ↗</a></div>
           </article>
           <article class="contract-card">
-            <div class="contract-top"><div class="contract-icon" style="color:var(--cyan);">R</div><div><div class="contract-name">RuneToken</div><div class="contract-std">TOKEN · BEP-20 / ERC20CAPPED</div></div><span class="contract-status" data-i18n="status_ready2">テスト済 · 未デプロイ</span></div>
+            <div class="contract-top"><div class="contract-icon" style="color:var(--cyan);">R</div><div><div class="contract-name">RuneToken</div><div class="contract-std">TOKEN · BEP-20 / ERC20CAPPED</div></div><span class="contract-status" data-i18n="status_ready2">LIVE · デプロイ済</span></div>
             <p class="contract-desc" data-i18n="c2_desc">シンボル $RUNE。供給上限444,444枚のキャップ付きトークン。発行できるのはNFTコントラクトだけ（minter-gated）で、使われた分はすべてバーンされます。Xリポスト等のオフチェーン報酬システムは持ちません。</p>
             <ul class="fn-list">
               <li>mint(to, amount)<span data-i18n="c2_f1">NFTコントラクト専用（ミント報酬）</span></li>
@@ -781,10 +791,10 @@
               <li>setMinter(addr, bool)<span data-i18n="c2_f3">オーナーのみ</span></li>
               <li>MAX_SUPPLY = 444,444<span data-i18n="c2_f4">上限固定</span></li>
             </ul>
-            <div class="contract-addr"><b data-i18n="addr_label2">コントラクトアドレス</b><span data-i18n="addr_tba2">デプロイ後に公開（TBA）</span></div>
+            <div class="contract-addr"><b data-i18n="addr_label2">コントラクトアドレス</b><span class="addr-val">0x6b4aC779855f4Cb9fdd308be8A3c4826A7aeDFba</span><a class="bsc-link" href="https://bscscan.com/address/0x6b4aC779855f4Cb9fdd308be8A3c4826A7aeDFba" target="_blank" rel="noopener">BscScan ↗</a></div>
           </article>
           <article class="contract-card gold">
-            <div class="contract-top"><div class="contract-icon">M</div><div><div class="contract-name">AgentRuneMarketplace</div><div class="contract-std">MARKET · ESCROW</div></div><span class="contract-status" data-i18n="status_ready3">テスト済 · 未デプロイ</span></div>
+            <div class="contract-top"><div class="contract-icon">M</div><div><div class="contract-name">AgentRuneMarketplace</div><div class="contract-std">MARKET · ESCROW</div></div><span class="contract-status" data-i18n="status_ready3">LIVE · デプロイ済</span></div>
             <p class="contract-desc" data-i18n="c3_desc">固定価格のエスクロー型マーケット。手数料0%。購入時に ERC-2981 でロイヤリティを読み取り（取得できない場合は5%を収益ウォレットへ）、残りを売り手へ送ります。</p>
             <ul class="fn-list">
               <li>list(tokenId, price)<span data-i18n="c3_f1">出品（NFTをエスクロー）</span></li>
@@ -793,7 +803,7 @@
               <li>updatePrice(tokenId, price)<span data-i18n="c3_f4">価格変更</span></li>
               <li>getListedIds()<span data-i18n="c3_f5">出品一覧の取得</span></li>
             </ul>
-            <div class="contract-addr"><b data-i18n="addr_label3">コントラクトアドレス</b><span data-i18n="addr_tba3">デプロイ後に公開（TBA）</span></div>
+            <div class="contract-addr"><b data-i18n="addr_label3">コントラクトアドレス</b><span class="addr-val">0xd93cFE9588fBe589cAB312e7f4624E99f5A374FF</span><a class="bsc-link" href="https://bscscan.com/address/0xd93cFE9588fBe589cAB312e7f4624E99f5A374FF" target="_blank" rel="noopener">BscScan ↗</a></div>
           </article>
         </div>
 
@@ -803,7 +813,7 @@
           <div class="spec-row"><span class="spec-k">DECK HASH</span><span class="spec-v" style="font-family:ui-monospace,Menlo,monospace; font-size:12.5px; word-break:break-all;">0x48ba2ea5d13d124e7b87aca5955a2d00ecd60adb879dc63f9b0d26c1712f1e76</span></div>
           <div class="spec-row"><span class="spec-k" data-i18n="spec_gate_k">ミントゲート</span><span class="spec-v" data-i18n="spec_gate_v">エージェント専用 — SPACE ID Agent ID の保有をオンチェーンで確認（コントラクト経由の呼び出しは不可）</span></div>
           <div class="spec-row"><span class="spec-k" data-i18n="spec_rev_k">収益 / ロイヤリティ</span><span class="spec-v" data-i18n="spec_rev_v">ミント収益は取引ごとに収益ウォレットへ送金 · ロイヤリティ5%（ERC-2981）</span></div>
-          <div class="spec-row"><span class="spec-k" data-i18n="spec_test_k">検証</span><span class="spec-v" data-i18n="spec_test_v">自動テスト 11/11 通過（ミント / ラダー / バーン / アップグレード / Prime引き換え / マーケット売買）· BscScanでソース検証予定</span></div>
+          <div class="spec-row"><span class="spec-k" data-i18n="spec_test_k">検証</span><span class="spec-v" data-i18n="spec_test_v">自動テスト 11/11 通過（ミント / ラダー / バーン / アップグレード / Prime引き換え / マーケット売買）· BNB Chainメインネットへデプロイ済み · ミント受付中（mintActive = true）</span></div>
         </div>
 
         <div class="flow">
@@ -831,14 +841,14 @@
           </div>
           <pre id="agentPrompt">Mint AgentRune on BNB Chain (BEP-721). Minting is agent-only: use my Binance Agentic Wallet with a registered SPACE ID Agent ID.
 
-Structure — 3 contracts (addresses announced at launch):
-- AgentRune (ARUNE): the NFT. Deck-draw mint, supply 4,443 deck tokens + Prime ID 4444.
-- RuneToken ($RUNE): BEP-20, cap 444,444. Only the NFT contract can mint it.
-- AgentRuneMarketplace: escrow marketplace, 0% fee, 5% royalty (ERC-2981).
+Structure — 3 contracts, DEPLOYED on BNB Chain mainnet (mint is LIVE, mintActive = true):
+- AgentRune (ARUNE): 0xc1fc0bB36D2Be928809e4B3E6Aa94B3dd2946f53 — the NFT. Deck-draw mint, supply 4,443 deck tokens + Prime ID 4444. Verify: https://bscscan.com/address/0xc1fc0bB36D2Be928809e4B3E6Aa94B3dd2946f53
+- RuneToken ($RUNE): 0x6b4aC779855f4Cb9fdd308be8A3c4826A7aeDFba — BEP-20, cap 444,444. Only the NFT contract can mint it.
+- AgentRuneMarketplace: 0xd93cFE9588fBe589cAB312e7f4624E99f5A374FF — escrow marketplace, 0% fee, 5% royalty (ERC-2981).
 
 Mint rules:
 - Tiers: Dormant 2,222 / Awakened 1,333 / Empowered 666 / Ascended 222 / Prime 1 (ID 4444, redeem-only — never drawn).
-- My first mint is FREE and draws from the full deck (Dormant to Ascended). Gas only.
+- My first mint is FREE and draws from the whole deck (Dormant to Ascended). Gas only. The free mint is automatic: mint(quantity) charges 0 BNB for the first slot while my free mint is unused — there is no separate free-mint function.
 - Mints #2-10 cost 0.0002 BNB each, #11-20 cost 0.0004 BNB, #21-30 cost 0.0008 BNB. Max 30 per wallet (max total 0.0138 BNB). Use quoteBulk to confirm the exact total first.
 - Every mint earns 40 $RUNE (free mint included).
 
@@ -851,7 +861,7 @@ $RUNE utility (all spent $RUNE is burned):
 Marketplace:
 - list(tokenId, price) escrows the NFT; buy(tokenId) pays 95% to the seller and 5% royalty; cancel(tokenId) returns the NFT; updatePrice changes the price.
 
-Read the exact price from the contract before submitting, and show me the total cost and the tier I received. The contract addresses and mint-open status will be announced at launch. Do not mint to any address before the official announcement.</pre>
+Read the exact price from the contract (quoteBulk) before submitting, and show me the total cost and the tier I received. Mint ONLY to the AgentRune NFT address above.</pre>
         </div>
       </div>
     </section>
@@ -862,13 +872,13 @@ Read the exact price from the contract before submitting, and show me the total 
         <div class="sec-rule"></div>
         <h2 class="sec-title" data-i18n="mint_title">ミント</h2>
         <div class="mint-panel">
-          <div class="mint-status"><span class="status-dot"></span><span data-i18n="mint_status">ミント開始前 — プレビュー公開中</span></div>
-          <div class="mint-counter">0 <small>/ 4,444</small></div>
+          <div class="mint-status"><span class="status-dot"></span><span data-i18n="mint_status">MINT LIVE — 現在ミント受付中</span></div>
+          <div class="mint-counter"><span id="mintedCount">…</span> <small>/ 4,443</small></div>
           <div style="color:var(--ink-faint); font-size:13.5px;" data-i18n="mint_counter_lbl">ミント済み</div>
-          <div class="progress"><div class="progress-bar"></div></div>
+          <div class="progress"><div class="progress-bar" id="mintProgress"></div></div>
 
-          <div class="sim-title" data-i18n="sim_title">料金シミュレーター</div>
-          <p class="sim-sub" data-i18n="sim_sub">新規ウォレットが階段価格でミントした場合の目安です。</p>
+          <div class="sim-title" data-i18n="sim_title">ミント数量と料金</div>
+          <p class="sim-sub" data-i18n="sim_sub">新規ウォレットが階段価格でミントした場合の目安です。ウォレット接続後は、コントラクトの quoteBulk が読み取る正確な金額でミントします。</p>
           <div class="qty-row" id="qtyRow">
             <button type="button" class="qty-btn active" data-qty="1">1</button>
             <button type="button" class="qty-btn" data-qty="5">5</button>
@@ -878,9 +888,15 @@ Read the exact price from the contract before submitting, and show me the total 
           </div>
           <p class="sim-result"><span data-i18n="sim_total">合計</span> <b id="simCost">0 BNB</b> · <span class="rune-earn" id="simRune">40 $RUNE</span> <span data-i18n="sim_earn">獲得</span></p>
 
+          <div class="wallet-row">
+            <button type="button" class="btn btn-ghost" id="connectBtn" data-i18n="connect_btn">ウォレットを接続</button>
+            <span class="wallet-status" id="walletStatus" data-i18n="wallet_none">未接続 — BNB Chain（56）</span>
+          </div>
           <div class="mint-action">
-            <button type="button" class="btn btn-gold" disabled data-i18n="mint_btn">近日公開 — まだミントできません</button>
-            <p class="mint-note" data-i18n="mint_note">コントラクト3点（NFT / $RUNE / マーケット）は完成しテスト済みですが、まだデプロイされていません。ミント開始後は、上のエージェント用プロンプトからミントしてください。開始日時は公式発表でお知らせします。</p>
+            <button type="button" class="btn btn-gold" id="mintBtn" data-i18n="mint_btn">ミントする</button>
+            <button type="button" class="btn btn-ghost" id="freeMintBtn" data-i18n="free_btn">無料ミント（Agent ID必須 · 初回のみ）</button>
+            <p class="mint-msg" id="mintMsg" role="status" aria-live="polite"></p>
+            <p class="mint-note" data-i18n="mint_note">ミントはBNB Chainメインネットで受付中です。エージェント専用（Agent ID必須）で、初回ミントは自動で無料になります — 「無料ミント」ボタンは初回分を0 BNBでミントします。有料分はコントラクトが階段価格で正確な金額を計算し、上限は1ウォレット30体までです。ブラウザウォレットをお持ちでない場合は、上のエージェント用プロンプトからもミントできます。</p>
           </div>
         </div>
       </div>
@@ -896,7 +912,7 @@ Read the exact price from the contract before submitting, and show me the total 
           <span data-i18n="foot_royalty">ロイヤリティ 5%</span>
           <span data-i18n="foot_agent">エージェント専用ミント（Agent ID必須）</span>
         </div>
-        <a class="x-share" href="https://x.com/intent/post?text=AgentRune%20%E2%80%94%204%2C444%E5%80%8B%E3%81%AE%E3%83%AB%E3%83%BC%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%B3NFT%E3%80%82%E5%88%9D%E5%9B%9E%E3%83%9F%E3%83%B3%E3%83%88%E7%84%A1%E6%96%99%E3%80%81%E3%83%9F%E3%83%B3%E3%83%88%E3%81%94%E3%81%A8%E3%81%AB40%20%24RUNE%E3%80%82%E8%BF%91%E6%97%A5%E3%83%9F%E3%83%B3%E3%83%88%E9%96%8B%E5%A7%8B%E3%80%82" target="_blank" rel="noopener">
+        <a class="x-share" href="https://x.com/intent/post?text=AgentRune%20%E2%80%94%204%2C444%E5%80%8B%E3%81%AE%E3%83%AB%E3%83%BC%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%B3NFT%E3%80%82%E5%88%9D%E5%9B%9E%E3%83%9F%E3%83%B3%E3%83%88%E7%84%A1%E6%96%99%E3%80%81%E3%83%9F%E3%83%B3%E3%83%88%E3%81%94%E3%81%A8%E3%81%AB40%20%24RUNE%E3%80%82%E3%83%9F%E3%83%B3%E3%83%88%E5%8F%97%E4%BB%98%E4%B8%AD%E3%80%82" target="_blank" rel="noopener">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
           <span data-i18n="foot_share">Xでシェアする</span>
         </a>
@@ -904,7 +920,7 @@ Read the exact price from the contract before submitting, and show me the total 
           <span data-i18n="foot_contracts">コントラクト：AgentRune（ARUNE）· RuneToken（$RUNE）· AgentRuneMarketplace</span>
           <span data-i18n="foot_market">マーケット手数料 0% · ロイヤリティ 5%</span>
         </div>
-        <p class="footer-note" data-i18n="foot_note">このページはプレビューです。コントラクトは完成・テスト済みですが未デプロイで、ミントはまだ開始していません。公式Xアカウントは準備中です。</p>
+        <p class="footer-note" data-i18n="foot_note">コントラクトはBNB Chainメインネットへデプロイ済みで、ミントは受付中です。公式Xアカウントは準備中です。</p>
       </div>
     </footer>
 
@@ -937,7 +953,7 @@ Read the exact price from the contract before submitting, and show me the total 
           nav_token: "Token", nav_market: "Marketplace", nav_contracts: "Contracts",
           lang_label: "Language",
           btn_mint: "Mint", btn_mint2: "Mint",
-          hero_chip: "PREVIEW — MINT COMING SOON",
+          hero_chip: "MINT LIVE — NOW MINTING",
           hero_tag: "Ancient runes awaken.",
           hero_sub: "4,444 rune stones sleeping deep inside the ruins. Your first mint is a free deck draw, and every mint earns 40 $RUNE. The top prize, Prime, is a one-of-one redeemed for 3,000 $RUNE.",
           stat_supply: "TOTAL SUPPLY", stat_tiers: "TIERS", stat_token: "REWARD PER MINT", stat_free_word: "FREE", stat_free: "FIRST MINT",
@@ -962,7 +978,7 @@ Read the exact price from the contract before submitting, and show me the total 
           token_title_rest: "Token",
           token_body1: "Earn 40 $RUNE with every mint — including the free first mint.",
           token_body2: "Mint 30 and one wallet earns up to 1,200 $RUNE. Every way to spend $RUNE burns it — the utility below is already implemented in the contract.",
-          token_note: "* $RUNE / ARUNE are working names (symbols not yet final).",
+          token_note: "* $RUNE (BEP-20) and AgentRune / ARUNE (BEP-721) are deployed on BNB Chain mainnet — see the Contracts section below for the addresses.",
           toke_cap: "total supply cap (max) $RUNE", toke_per: "$RUNE earned per mint (free mint included)",
           toke_max: "max mint rewards per wallet (30 mints)", toke_std: "standard · 18 decimals · only the NFT contract can mint",
           per_mint4: "mint", per_mint5: "mint",
@@ -978,17 +994,17 @@ Read the exact price from the contract before submitting, and show me the total 
           mstep1_t: "List — list(tokenId, price)", mstep1_b: "Set a price in BNB and list. The NFT is escrowed in the marketplace contract. You can change the price (updatePrice) or cancel (cancel) any time — cancelling returns your NFT.",
           mstep2_t: "Buy — buy(tokenId)", mstep2_b: "Buy at exactly the listed price in BNB. Payment splits instantly: 5% royalty to the creator, 95% to the seller. Platform fee is 0%.",
           mstep3_t: "Trade through your agent too", mstep3_b: "Listing, buying and cancelling are all on-chain functions — just tell your agent the tokenId and price. Anyone can read the live listings with getListedIds().",
-          listing_title: "Listings preview",
+          listing_title: "Listings",
           listing_price: "Price", listing_price2: "Price", listing_price3: "Price", listing_price4: "Price",
-          listing_btn: "Coming soon", listing_btn2: "Coming soon", listing_btn3: "Coming soon", listing_btn4: "Coming soon",
-          market_note: "There are no listings yet — the cards above are a layout preview, not real listings. The marketplace opens after the contracts deploy. An Element Market listing will also be announced at launch.",
+          listing_btn: "Not listed", listing_btn2: "Not listed", listing_btn3: "Not listed", listing_btn4: "Not listed",
+          market_note: "The marketplace is live (see the contract address below). The cards above show representative artwork only — the prices are not real listings. Anyone can read the current listings from the contract with getListedIds().",
           contract_title: "Smart Contracts",
-          contract_sub: "AgentRune is three contracts. The source is complete and has passed 11/11 automated tests. Nothing is deployed yet — addresses will be published here at launch.",
-          status_ready: "TESTED · NOT DEPLOYED", status_ready2: "TESTED · NOT DEPLOYED", status_ready3: "TESTED · NOT DEPLOYED",
+          contract_sub: "AgentRune is three contracts, all deployed on BNB Chain mainnet with minting open (11/11 automated tests passed). Every address can be verified on BscScan.",
+          status_ready: "LIVE · DEPLOYED", status_ready2: "LIVE · DEPLOYED", status_ready3: "LIVE · DEPLOYED",
           addr_label: "CONTRACT ADDRESS", addr_label2: "CONTRACT ADDRESS", addr_label3: "CONTRACT ADDRESS",
-          addr_tba: "Published after deployment (TBA)", addr_tba2: "Published after deployment (TBA)", addr_tba3: "Published after deployment (TBA)",
+          addr_tba: "Deployed — verify on BscScan", addr_tba2: "Deployed — verify on BscScan", addr_tba3: "Deployed — verify on BscScan",
           c1_desc: "Symbol ARUNE. The core deck-draw mint contract. Supply is 4,443 deck tokens + 1 Prime (ID 4444). Implements the SPACE ID Agent ID agent-only gate, the price ladder, and 5% royalty.",
-          c1_f1: "BNB mint (ladder pricing)", c1_f2: "max 3", c1_f3: "cash back into $RUNE by tier", c1_f4: "3 NFTs + $RUNE → 1 higher tier", c1_f6: "confirm the bulk total first", c1_f7: "read from the deck bitmap",
+          c1_f1: "BNB mint (ladder pricing · first mint free automatically)", c1_f2: "max 3", c1_f3: "cash back into $RUNE by tier", c1_f4: "3 NFTs + $RUNE → 1 higher tier", c1_f6: "confirm the bulk total first", c1_f7: "read from the deck bitmap",
           c2_desc: "Symbol $RUNE. A capped token with a 444,444 max supply. Only the NFT contract can mint it (minter-gated), and everything spent is burned. It carries no off-chain repost/reward system.",
           c2_f1: "NFT contract only (mint rewards)", c2_f2: "burn / upgrade / redeem spending", c2_f3: "owner only", c2_f4: "hard cap",
           c3_desc: "Fixed-price escrow market. 0% fee. On a sale it reads the royalty via ERC-2981 (with a 5% fallback to the revenue wallet) and sends the rest to the seller.",
@@ -997,7 +1013,7 @@ Read the exact price from the contract before submitting, and show me the total 
           spec_deck_v: "4,443 tokens · seed “AGENTRUNE” · 35-word rarity bitmap",
           spec_gate_k: "MINT GATE", spec_gate_v: "Agent-only — holding a SPACE ID Agent ID is checked on-chain (contract callers are rejected)",
           spec_rev_k: "REVENUE / ROYALTY", spec_rev_v: "Mint revenue forwards to the revenue wallet in each transaction · 5% royalty (ERC-2981)",
-          spec_test_k: "VERIFICATION", spec_test_v: "11/11 automated tests passed (mint / ladder / burn / upgrade / Prime redeem / marketplace trades) · source verification on BscScan planned",
+          spec_test_k: "VERIFICATION", spec_test_v: "11/11 automated tests passed (mint / ladder / burn / upgrade / Prime redeem / marketplace trades) · deployed on BNB Chain mainnet · minting open (mintActive = true)",
           flow1: "<b>Mint flow:</b> the agent calls mint() → a token is drawn from the deck → NFT delivered + 40 $RUNE issued → revenue forwards to the revenue wallet.",
           flow2: "<b>Trade flow:</b> the seller escrows the NFT with list() → a buyer calls buy() → 5% royalty / 95% seller split, and the NFT moves to the buyer.",
           foot_contracts: "Contracts: AgentRune (ARUNE) · RuneToken ($RUNE) · AgentRuneMarketplace",
@@ -1009,15 +1025,16 @@ Read the exact price from the contract before submitting, and show me the total 
           step3_t: "Your agent mints", step3_b: "The agent reads the price from the contract, confirms the details with you, and executes the mint.",
           prompt_label: "AGENT PROMPT (ENGLISH)", copy_btn: "Copy", copy_done: "Copied!",
           mint_title: "Mint",
-          mint_status: "Mint not open yet — preview",
+          mint_status: "MINT LIVE — Minting is open",
           mint_counter_lbl: "Minted",
-          sim_title: "Price Simulator", sim_sub: "Estimate for a fresh wallet minting on the ladder.",
+          sim_title: "Mint Quantity & Price", sim_sub: "Estimate for a fresh wallet minting on the ladder. Once your wallet is connected, the mint uses the exact amount read from the contract via quoteBulk.",
           sim_total: "Total", sim_earn: "earned",
-          mint_btn: "Coming Soon — Minting Not Open",
-          mint_note: "All three contracts (NFT / $RUNE / marketplace) are complete and tested, but not deployed yet. Once minting opens, use the agent prompt above. The launch date will be announced officially.",
+          mint_btn: "Mint Now",
+          connect_btn: "Connect Wallet", free_btn: "Free Mint (Agent ID · first mint only)", wallet_none: "Not connected — BNB Chain (56)",
+          mint_note: "Minting is open on BNB Chain mainnet. Agent-only (Agent ID required); your first mint is free automatically — the Free Mint button mints that first one for 0 BNB. Paid mints are priced by the contract on the ladder, max 30 per wallet. No browser wallet? You can also mint with the agent prompt above.",
           foot_supply: "Total supply 4,444", foot_royalty: "Royalty 5%", foot_agent: "Agent-only mint (Agent ID required)",
           foot_share: "Share on X",
-          foot_note: "This page is a preview. The contracts are complete and tested but not deployed, and minting has not started. An official X account is in preparation.",
+          foot_note: "The contracts are deployed on BNB Chain mainnet and minting is live. An official X account is in preparation.",
           dock_price: "First mint FREE", dock_sub: "40 $RUNE per mint"
         }
       };
@@ -1134,6 +1151,216 @@ Read the exact price from the contract before submitting, and show me the total 
         updateSim();
       });
       updateSim();
+
+      /* ---------- Live mint counter + on-chain mint (BNB Chain mainnet) ---------- */
+      var NFT_ADDR = "0xc1fc0bB36D2Be928809e4B3E6Aa94B3dd2946f53";
+      var BSC_RPCS = ["https://bsc-dataseed1.defibit.io/", "https://bsc-dataseed.binance.org/", "https://bsc-dataseed1.binance.org/"];
+      var MAX_DECK = 4443;
+      var SEL_TOTAL_MINTED = "0xa2309ff8"; /* totalMinted() */
+      var SEL_DECK_DRAWN = "0xd3e0d31f";   /* deckDrawn() — deck tokens minted so far */
+      var SEL_TOTAL_SUPPLY = "0x18160ddd"; /* totalSupply() */
+      var SEL_MINT = "0xa0712d68";         /* mint(uint256) */
+      var SEL_QUOTE = "0x86c2a4f0";        /* quoteBulk(address,uint256) */
+      var SEL_FREE_USED = "0x2626c4bf";    /* freeUsed(address) */
+      var SEL_MINT_COUNT = "0xed9ec888";   /* mintCount(address) */
+
+      var MINT_TXT = {
+        ja: {
+          noWallet: "ブラウザウォレットが見つかりません。Binance Agentic Wallet等のウォレットでこのページを開くか、上のエージェント用プロンプトをご利用ください。",
+          connecting: "ウォレットに接続しています…",
+          connected: "接続済み",
+          quoteFail: "価格の取得に失敗しました。もう一度お試しください。",
+          sending: "ウォレットでトランザクションを確認してください…",
+          sent: "ミントを送信しました！",
+          viewTx: "BscScanで確認",
+          failed: "ミントに失敗しました。Agent IDの保有とBNB残高をご確認ください。",
+          freeUsed: "無料ミントは使用済みです。有料ミントをご利用ください。",
+          maxed: "このウォレットは上限30体に達しています。",
+          rejected: "トランザクションがキャンセルされました。"
+        },
+        en: {
+          noWallet: "No browser wallet found. Open this page in a wallet such as Binance Agentic Wallet, or use the agent prompt above.",
+          connecting: "Connecting to your wallet…",
+          connected: "Connected",
+          quoteFail: "Could not read the price from the contract. Please try again.",
+          sending: "Confirm the transaction in your wallet…",
+          sent: "Mint submitted!",
+          viewTx: "View on BscScan",
+          failed: "Mint failed. Check that you hold an Agent ID and have enough BNB.",
+          freeUsed: "Your free mint is already used. Please use a paid mint.",
+          maxed: "This wallet has reached the 30-per-wallet cap.",
+          rejected: "The transaction was cancelled."
+        }
+      };
+      function mt(key) { return (MINT_TXT[currentLang] || MINT_TXT.ja)[key]; }
+      var mintMsgEl = document.getElementById("mintMsg");
+      function setMintMsg(text, cls) {
+        mintMsgEl.className = "mint-msg" + (cls ? " " + cls : "");
+        mintMsgEl.textContent = text || "";
+      }
+      function encUint(n) { return BigInt(n).toString(16).padStart(64, "0"); }
+      function encAddr(a) { return a.toLowerCase().replace(/^0x/, "").padStart(64, "0"); }
+      function hexToBig(h) { return BigInt(h); }
+
+      function rpcCall(data) {
+        var chain = Promise.reject(new Error("start"));
+        BSC_RPCS.forEach(function (url) {
+          chain = chain.catch(function () {
+            return fetch(url, {
+              method: "POST",
+              headers: { "content-type": "application/json" },
+              body: JSON.stringify({ jsonrpc: "2.0", id: 1, method: "eth_call", params: [{ to: NFT_ADDR, data: data }, "latest"] })
+            }).then(function (r) { return r.json(); }).then(function (j) {
+              if (j && j.result && j.result !== "0x") return j.result;
+              throw new Error("no result");
+            });
+          });
+        });
+        return chain.catch(function () { return null; });
+      }
+      function refreshMinted() {
+        /* Primary read per spec: totalMinted(). The deployed deck-draw contract
+           exposes the same figure as deckDrawn(), so fall back to it (then
+           totalSupply()) if totalMinted() is unavailable on-chain. */
+        rpcCall(SEL_TOTAL_MINTED).then(function (r) {
+          if (r) return r;
+          return rpcCall(SEL_DECK_DRAWN).then(function (r2) { return r2 || rpcCall(SEL_TOTAL_SUPPLY); });
+        }).then(function (r) {
+          if (!r) return;
+          var n = Number(hexToBig(r));
+          if (!isFinite(n)) return;
+          document.getElementById("mintedCount").textContent = n.toLocaleString("en-US");
+          document.getElementById("mintProgress").style.width = Math.min(100, (n / MAX_DECK) * 100).toFixed(2) + "%";
+        });
+      }
+      refreshMinted();
+      setInterval(refreshMinted, 30000);
+
+      var userAccount = null;
+      var connectBtn = document.getElementById("connectBtn");
+      var walletStatus = document.getElementById("walletStatus");
+      var mintBtn = document.getElementById("mintBtn");
+      var freeMintBtn = document.getElementById("freeMintBtn");
+      function shortAddr(a) { return a.slice(0, 6) + "…" + a.slice(-4); }
+      function showConnected() {
+        connectBtn.textContent = shortAddr(userAccount);
+        walletStatus.removeAttribute("data-i18n");
+        walletStatus.textContent = mt("connected") + " · " + userAccount;
+      }
+      function ensureWallet() {
+        if (!window.ethereum) { setMintMsg(mt("noWallet"), "err"); return Promise.resolve(null); }
+        if (userAccount) return Promise.resolve(userAccount);
+        setMintMsg(mt("connecting"));
+        return window.ethereum.request({ method: "eth_requestAccounts" }).then(function (accs) {
+          if (!accs || !accs[0]) throw new Error("no account");
+          userAccount = accs[0];
+          return window.ethereum.request({ method: "eth_chainId" });
+        }).then(function (chainId) {
+          if (chainId === "0x38") return null;
+          return window.ethereum.request({ method: "wallet_switchEthereumChain", params: [{ chainId: "0x38" }] }).catch(function (e) {
+            if (e && e.code === 4902) {
+              return window.ethereum.request({ method: "wallet_addEthereumChain", params: [{ chainId: "0x38", chainName: "BNB Smart Chain", nativeCurrency: { name: "BNB", symbol: "BNB", decimals: 18 }, rpcUrls: ["https://bsc-dataseed.binance.org/"], blockExplorerUrls: ["https://bscscan.com"] }] });
+            }
+            throw e;
+          });
+        }).then(function () {
+          setMintMsg(""); showConnected();
+          return userAccount;
+        }).catch(function () {
+          setMintMsg(mt("rejected"), "err");
+          return null;
+        });
+      }
+      connectBtn.addEventListener("click", function () { ensureWallet(); });
+      if (window.ethereum && window.ethereum.on) {
+        window.ethereum.on("accountsChanged", function (accs) {
+          userAccount = (accs && accs[0]) || null;
+          if (userAccount) showConnected();
+        });
+      }
+      function providerCall(data) {
+        return window.ethereum.request({ method: "eth_call", params: [{ to: NFT_ADDR, data: data }, "latest"] })
+          .catch(function () { return rpcCall(data); });
+      }
+      function priceWeiForCount(count) { /* contract priceForCount(count), in wei */
+        if (count < 10) return 200000000000000n;
+        if (count < 20) return 400000000000000n;
+        return 800000000000000n;
+      }
+      function quoteFor(acct, qty) {
+        return providerCall(SEL_QUOTE + encAddr(acct) + encUint(qty)).then(function (r) {
+          if (r && r.length >= 66) return hexToBig("0x" + r.slice(2, 66));
+          /* Fallback: rebuild the ladder quote from mintCount + freeUsed */
+          return Promise.all([
+            providerCall(SEL_MINT_COUNT + encAddr(acct)),
+            providerCall(SEL_FREE_USED + encAddr(acct))
+          ]).then(function (vals) {
+            if (!vals[0]) return null;
+            var count = Number(hexToBig(vals[0]));
+            var freeUsed = vals[1] ? Number(hexToBig(vals[1])) === 1 : false;
+            var total = 0n;
+            for (var i = 0; i < qty; i++) {
+              if (!freeUsed && i === 0) continue;
+              total += priceWeiForCount(count + i);
+            }
+            return total;
+          });
+        }).catch(function () { return null; });
+      }
+      function sendMint(acct, qty, valueWei) {
+        setMintMsg(mt("sending"));
+        return window.ethereum.request({
+          method: "eth_sendTransaction",
+          params: [{ from: acct, to: NFT_ADDR, data: SEL_MINT + encUint(qty), value: "0x" + valueWei.toString(16) }]
+        }).then(function (tx) {
+          mintMsgEl.className = "mint-msg ok";
+          mintMsgEl.innerHTML = "";
+          mintMsgEl.appendChild(document.createTextNode(mt("sent") + " "));
+          var a = document.createElement("a");
+          a.href = "https://bscscan.com/tx/" + tx;
+          a.target = "_blank"; a.rel = "noopener";
+          a.textContent = mt("viewTx");
+          mintMsgEl.appendChild(a);
+          setTimeout(refreshMinted, 6000);
+          setTimeout(refreshMinted, 20000);
+          return true;
+        });
+      }
+      function setBusy(busy) {
+        mintBtn.disabled = busy; freeMintBtn.disabled = busy; connectBtn.disabled = busy;
+      }
+      mintBtn.addEventListener("click", function () {
+        ensureWallet().then(function (acct) {
+          if (!acct) return;
+          setBusy(true);
+          quoteFor(acct, currentQty).then(function (price) {
+            if (price === null) { setMintMsg(mt("quoteFail"), "err"); setBusy(false); return; }
+            sendMint(acct, currentQty, price).catch(function (e) {
+              setMintMsg(e && e.code === 4001 ? mt("rejected") : mt("failed"), "err");
+            }).then(function () { setBusy(false); });
+          });
+        });
+      });
+      freeMintBtn.addEventListener("click", function () {
+        /* The free mint is the automatic first slot of mint(uint256):
+           mint(1) with 0 BNB while freeUsed is false. */
+        ensureWallet().then(function (acct) {
+          if (!acct) return;
+          setBusy(true);
+          Promise.all([
+            providerCall(SEL_FREE_USED + encAddr(acct)),
+            providerCall(SEL_MINT_COUNT + encAddr(acct))
+          ]).then(function (vals) {
+            var freeUsed = vals[0] ? Number(hexToBig(vals[0])) === 1 : false;
+            var count = vals[1] ? Number(hexToBig(vals[1])) : 0;
+            if (count >= 30) { setMintMsg(mt("maxed"), "err"); setBusy(false); return; }
+            if (freeUsed) { setMintMsg(mt("freeUsed"), "err"); setBusy(false); return; }
+            sendMint(acct, 1, 0n).catch(function (e) {
+              setMintMsg(e && e.code === 4001 ? mt("rejected") : mt("failed"), "err");
+            }).then(function () { setBusy(false); });
+          }).catch(function () { setMintMsg(mt("failed"), "err"); setBusy(false); });
+        });
+      });
 
       /* ---------- Gallery arrows ---------- */
       var track = document.getElementById("galTrack");
