@@ -176,6 +176,67 @@
       .hstat .num em{ font-style:normal; color:var(--cyan); }
       .hstat .lbl{ font-size:12.5px; color:var(--ink-faint); letter-spacing:.1em; margin-top:4px; }
 
+      /* ---------- Live Status : animated miner ---------- */
+      .live-grid{ position:relative; display:grid; gap:14px; }
+      .live-stage{
+        border:1px solid var(--line); border-radius:18px; overflow:hidden;
+        background:radial-gradient(420px 200px at 82% 30%, rgba(63,210,234,.10), transparent 62%), var(--panel);
+        padding:14px 8px 0;
+      }
+      .live-stage svg{ width:100%; height:auto; }
+      .miner-arm{ transform-box:view-box; transform-origin:136px 106px; animation:pick-swing 1.6s ease-in-out infinite; }
+      @keyframes pick-swing{
+        0%,100%{ transform:rotate(-26deg); }
+        42%{ transform:rotate(-32deg); }
+        58%{ transform:rotate(24deg); }
+        70%{ transform:rotate(15deg); }
+        84%{ transform:rotate(-8deg); }
+      }
+      .miner-body{ animation:miner-bob 1.6s ease-in-out infinite; }
+      @keyframes miner-bob{ 0%,100%{ transform:translateY(0); } 58%{ transform:translateY(1.5px); } }
+      .stone{ animation:stone-hit 1.6s ease-in-out infinite; }
+      @keyframes stone-hit{ 0%,55%,72%,100%{ transform:translateX(0); } 60%{ transform:translateX(2.5px); } 66%{ transform:translateX(-1.5px); } }
+      .stone-rune{ filter:drop-shadow(0 0 6px rgba(63,210,234,.85)); animation:rune-glow 1.6s ease-in-out infinite; }
+      @keyframes rune-glow{ 0%,100%{ opacity:.75; } 58%{ opacity:1; } 66%{ opacity:.55; } 78%{ opacity:1; } }
+      .lamp{ filter:drop-shadow(0 0 7px rgba(63,210,234,.95)); animation:lamp-pulse 1.6s ease-in-out infinite; }
+      @keyframes lamp-pulse{ 0%,100%{ opacity:.85; } 58%{ opacity:1; } }
+      .spark{ opacity:0; animation:spark-flash 1.6s ease-out infinite; }
+      @keyframes spark-flash{ 0%,54%{ opacity:0; } 59%{ opacity:1; } 74%,100%{ opacity:0; } }
+      .chip{ opacity:0; }
+      .chip1{ animation:chip-fly1 1.6s ease-out infinite; }
+      .chip2{ animation:chip-fly2 1.6s ease-out infinite; }
+      .chip3{ animation:chip-fly3 1.6s ease-out infinite; }
+      @keyframes chip-fly1{ 0%,56%{ opacity:0; transform:translate(0,0) rotate(0deg); } 62%{ opacity:1; } 92%,100%{ opacity:0; transform:translate(-34px,-42px) rotate(-160deg); } }
+      @keyframes chip-fly2{ 0%,56%{ opacity:0; transform:translate(0,0) rotate(0deg); } 62%{ opacity:1; } 92%,100%{ opacity:0; transform:translate(-16px,26px) rotate(140deg); } }
+      @keyframes chip-fly3{ 0%,56%{ opacity:0; transform:translate(0,0) rotate(0deg); } 62%{ opacity:1; } 92%,100%{ opacity:0; transform:translate(20px,-30px) rotate(200deg); } }
+      .live-side{
+        border:1px solid var(--line); border-radius:18px; background:var(--panel);
+        padding:22px 20px; display:grid; justify-items:center; text-align:center; gap:6px; align-content:start;
+      }
+      .pouch-wrap{ width:104px; }
+      .pouch-wrap.bounce{ animation:pouch-bounce .55s ease; }
+      @keyframes pouch-bounce{ 0%{ transform:scale(1); } 35%{ transform:scale(1.14) translateY(-4px); } 70%{ transform:scale(.96); } 100%{ transform:scale(1); } }
+      .pouch-rune{ filter:drop-shadow(0 0 5px rgba(63,210,234,.8)); }
+      .pouch-count{ font-family:"Cinzel",serif; font-size:clamp(38px,9vw,50px); font-weight:900; line-height:1.1; color:var(--ink); border-radius:12px; padding:0 10px; }
+      .pouch-count.flash{ animation:count-flash 1.2s ease; }
+      @keyframes count-flash{ 0%{ color:var(--gold); text-shadow:0 0 22px rgba(227,185,89,.75); transform:scale(1.1); } 100%{ color:var(--ink); text-shadow:none; transform:scale(1); } }
+      .pouch-lbl{ color:var(--ink-faint); font-size:12.5px; letter-spacing:.1em; font-weight:700; }
+      .live-rule{ color:var(--ink-dim); font-size:14px; margin:8px 0 4px; max-width:300px; }
+      .live-prog{ width:100%; margin-top:10px; }
+      .live-prog-head{ display:flex; justify-content:space-between; align-items:baseline; font-size:13px; color:var(--ink-faint); font-weight:700; letter-spacing:.06em; }
+      .live-prog-head .lp-num{ font-family:"Cinzel",serif; font-size:16px; color:var(--ink); letter-spacing:0; }
+      .live-prog .progress{ margin:8px 0 0; }
+      .fly-rune{
+        position:absolute; z-index:6; width:30px; height:30px; margin:-15px 0 0 -15px; pointer-events:none;
+        color:var(--cyan); font-size:26px; line-height:30px; text-align:center; font-weight:900;
+        text-shadow:0 0 14px rgba(63,210,234,.95), 0 0 4px rgba(63,210,234,.9);
+        transition:transform .9s cubic-bezier(.3,.7,.4,1), opacity .9s ease;
+      }
+      @media (min-width:760px){
+        .live-grid{ grid-template-columns:1.35fr 1fr; align-items:stretch; }
+        .live-side{ align-content:center; }
+      }
+
       /* ---------- Gallery ---------- */
       .gal-shell{ position:relative; }
       .gal-track{
@@ -464,6 +525,10 @@
         html{ scroll-behavior:auto; }
         .burger span{ transition:none; }
         .mobile-menu.open{ animation:none; }
+        .miner-arm, .miner-body, .stone, .stone-rune, .lamp, .spark,
+        .chip1, .chip2, .chip3, .pouch-wrap.bounce, .pouch-count.flash{ animation:none; }
+        .spark, .chip{ opacity:0; }
+        .fly-rune{ display:none; }
       }
     </style>
   </head>
@@ -474,6 +539,7 @@
       <div class="wrap header-in">
         <a class="wordmark" href="#top">AGENT<span>RUNE</span></a>
         <nav class="main">
+          <a href="#live" data-i18n="nav_live">ライブ</a>
           <a href="#collection" data-i18n="nav_collection">コレクション</a>
           <a href="#tiers" data-i18n="nav_tiers">ティア</a>
           <a href="#map" data-i18n="nav_map">地図</a>
@@ -495,6 +561,7 @@
       <div class="mobile-menu" id="mobileMenu" hidden>
         <div class="wrap">
           <nav class="mobile-nav" aria-label="メインメニュー">
+            <a href="#live" data-i18n="nav_live">ライブ</a>
             <a href="#collection" data-i18n="nav_collection">コレクション</a>
             <a href="#tiers" data-i18n="nav_tiers">ティア</a>
             <a href="#map" data-i18n="nav_map">地図</a>
@@ -539,6 +606,83 @@
         </div>
       </div>
     </div>
+
+    <!-- ================= LIVE STATUS : MINER ================= -->
+    <section id="live">
+      <div class="wrap">
+        <div class="sec-rule"></div>
+        <h2 class="sec-title" data-i18n="live_title">ライブステータス — ルーン採掘場</h2>
+        <p class="sec-sub" data-i18n="live_sub">神殿の採掘場では、マイナーが今もルーンを掘り続けています。ミントが増えるたびにルーンを1つ掘り出し、袋に集めます。数字はコントラクトから30秒ごとに読み取るライブ値です。</p>
+        <div class="live-grid" id="liveScene">
+          <div class="live-stage">
+            <svg viewBox="0 0 340 230" role="img" aria-label="光るルーンストーンをツルハシで掘るマイナー">
+              <ellipse cx="280" cy="138" rx="60" ry="64" fill="rgba(63,210,234,.07)" />
+              <rect x="0" y="196" width="340" height="34" fill="#080d13" />
+              <line x1="0" y1="196" x2="340" y2="196" stroke="#1d2a3a" stroke-width="2" />
+              <polygon points="18,196 30,182 44,196" fill="#131e2a" />
+              <polygon points="150,196 160,186 172,196" fill="#131e2a" />
+              <!-- Rune stone -->
+              <g class="stone" id="liveStone">
+                <polygon points="240,196 247,124 260,88 288,78 308,104 318,196" fill="#182635" stroke="#33506b" stroke-width="2" />
+                <polygon points="260,88 288,78 301,101 273,113" fill="#22374c" />
+                <g class="stone-rune" stroke="#3fd2ea" stroke-width="4" fill="none" stroke-linecap="round">
+                  <path d="M278 170 V104" />
+                  <path d="M278 118 L298 105" />
+                  <path d="M278 139 L298 126" />
+                </g>
+              </g>
+              <!-- Impact sparks + flying chips -->
+              <g class="spark" stroke="#ffe9a8" stroke-width="3" stroke-linecap="round">
+                <line x1="242" y1="116" x2="227" y2="104" />
+                <line x1="244" y1="125" x2="225" y2="125" />
+                <line x1="242" y1="134" x2="229" y2="146" />
+              </g>
+              <polygon class="chip chip1" points="243,124 250,120 251,128" fill="#3fd2ea" />
+              <polygon class="chip chip2" points="243,124 249,130 242,132" fill="#8fd8e8" />
+              <polygon class="chip chip3" points="243,124 252,126 248,133" fill="#e3b959" />
+              <!-- Miner -->
+              <g class="miner-body">
+                <rect x="101" y="150" width="13" height="40" rx="4" fill="#232c38" />
+                <rect x="120" y="150" width="13" height="40" rx="4" fill="#1b232e" />
+                <rect x="97" y="187" width="19" height="9" rx="3" fill="#0c0f13" />
+                <rect x="118" y="187" width="19" height="9" rx="3" fill="#0c0f13" />
+                <path d="M100 108 L84 138" stroke="#d9a066" stroke-width="9" stroke-linecap="round" fill="none" />
+                <path d="M98 100 Q118 91 138 100 L142 152 L94 152 Z" fill="#7c4a21" />
+                <rect x="94" y="145" width="48" height="8" fill="#4a2f14" />
+                <rect x="112" y="146" width="12" height="6" fill="#e3b959" />
+                <circle cx="118" cy="76" r="16" fill="#d9a066" />
+                <path d="M100 75 A18 18 0 0 1 136 75 Z" fill="#e3b959" />
+                <rect x="95" y="72" width="46" height="6" rx="3" fill="#b98a2e" />
+                <circle class="lamp" cx="118" cy="61" r="5" fill="#3fd2ea" />
+                <g class="miner-arm">
+                  <path d="M136 106 L166 126" stroke="#d9a066" stroke-width="10" stroke-linecap="round" fill="none" />
+                  <line x1="159" y1="133" x2="198" y2="82" stroke="#8a5a2b" stroke-width="6" stroke-linecap="round" />
+                  <path d="M171 85 Q200 57 233 77" stroke="#aebdc9" stroke-width="6" fill="none" stroke-linecap="round" />
+                </g>
+              </g>
+            </svg>
+          </div>
+          <div class="live-side">
+            <div class="pouch-wrap" id="livePouch">
+              <svg viewBox="0 0 120 128" aria-hidden="true">
+                <path d="M48 8 h24 l-3 14 h-18 Z" fill="#b98a2e" />
+                <rect x="43" y="21" width="34" height="8" rx="4" fill="#8a6420" />
+                <path d="M44 29 C30 52 24 72 28 94 C32 116 44 124 60 124 C76 124 88 116 92 94 C96 72 90 52 76 29 Z" fill="#332619" stroke="#b98a2e" stroke-width="2" />
+                <polygon class="pouch-rune" points="60,54 77,79 60,104 43,79" fill="#3fd2ea" />
+                <polygon points="60,65 68,79 60,93 52,79" fill="#0d2b36" />
+              </svg>
+            </div>
+            <div class="pouch-count" id="liveRuneCount">…</div>
+            <div class="pouch-lbl" data-i18n="live_pouch_lbl">マイナーの袋の中のルーン</div>
+            <p class="live-rule" data-i18n="live_rule">ミント1回 = ルーン1個。新しいミントがあるたびに、マイナーがルーンを1つ掘り出して袋に入れます。</p>
+            <div class="live-prog">
+              <div class="live-prog-head"><span data-i18n="live_progress_lbl">採掘の進捗</span><span class="lp-num"><span id="liveMintedNum">…</span> / 4,443</span></div>
+              <div class="progress"><div class="progress-bar" id="liveProgressBar"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <!-- ================= COLLECTION ================= -->
     <section id="collection">
@@ -935,6 +1079,12 @@ Read the exact price from the contract (quoteBulk) before submitting, and show m
       var I18N = {
         en: {
           nav_collection: "Collection", nav_tiers: "Tiers", nav_map: "Map", nav_pricing: "Pricing", nav_agent: "Agent Mint",
+          nav_live: "Live Status",
+          live_title: "Live Status — The Rune Quarry",
+          live_sub: "Deep in the temple quarry, the miner is still digging. Every new mint strikes one more rune loose and drops it into the pouch. The numbers are read live from the contract every 30 seconds.",
+          live_pouch_lbl: "RUNES IN THE MINER'S POUCH",
+          live_rule: "1 mint = 1 rune. Each time a new mint lands, the miner digs out one rune and adds it to the pouch.",
+          live_progress_lbl: "MINING PROGRESS",
           map_title: "Map of the Rune Stones",
           map_sub: "A map of the ruined valley seen from above. At its centre stands the circular temple, with stone bridges and causeways reaching out to the ruined districts, and cyan runes glowing along the river and across the ruins — but there is one place this map does not show.",
           map_caption: "The ruins map: at its core, the glowing sigil inside the circular temple, with bridges and causeways radiating to each district. The cyan lights scattered along the river and ruins mark where the rune stones sleep.",
@@ -1235,6 +1385,65 @@ Read the exact price from the contract (quoteBulk) before submitting, and show m
       }
       refreshMinted();
       setInterval(refreshMinted, 30000);
+
+      /* ---------- Live Status: miner pouch (deckDrawn, same RPC source) ---------- */
+      var livePrev = null;
+      var liveCountEl = document.getElementById("liveRuneCount");
+      var liveNumEl = document.getElementById("liveMintedNum");
+      var liveBarEl = document.getElementById("liveProgressBar");
+      function flyRuneToPouch() {
+        var scene = document.getElementById("liveScene");
+        var stone = document.getElementById("liveStone");
+        var pouch = document.getElementById("livePouch");
+        if (!scene || !stone || !pouch) return;
+        if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+        var wr = scene.getBoundingClientRect();
+        var sr = stone.getBoundingClientRect();
+        var pr = pouch.getBoundingClientRect();
+        if (!wr.width || !sr.width || !pr.width) return;
+        var sx = sr.left + sr.width / 2 - wr.left;
+        var sy = sr.top + sr.height / 2 - wr.top;
+        var tx = pr.left + pr.width / 2 - wr.left;
+        var ty = pr.top + pr.height / 2 - wr.top;
+        var el = document.createElement("div");
+        el.className = "fly-rune";
+        el.textContent = "◆";
+        el.style.left = sx + "px";
+        el.style.top = sy + "px";
+        scene.appendChild(el);
+        requestAnimationFrame(function () {
+          requestAnimationFrame(function () {
+            el.style.transform = "translate(" + (tx - sx) + "px," + (ty - sy) + "px) scale(.55) rotate(320deg)";
+            el.style.opacity = "0.1";
+          });
+        });
+        setTimeout(function () {
+          if (el.parentNode) el.parentNode.removeChild(el);
+          pouch.classList.remove("bounce");
+          void pouch.offsetWidth;
+          pouch.classList.add("bounce");
+        }, 950);
+      }
+      function refreshLive() {
+        rpcCall(SEL_DECK_DRAWN).then(function (r) {
+          if (!r) return;
+          var n = Number(hexToBig(r));
+          if (!isFinite(n)) return;
+          var increased = (livePrev !== null && n > livePrev);
+          liveCountEl.textContent = n.toLocaleString("en-US");
+          liveNumEl.textContent = n.toLocaleString("en-US");
+          liveBarEl.style.width = Math.min(100, (n / MAX_DECK) * 100).toFixed(2) + "%";
+          if (increased) {
+            flyRuneToPouch();
+            liveCountEl.classList.remove("flash");
+            void liveCountEl.offsetWidth;
+            liveCountEl.classList.add("flash");
+          }
+          livePrev = n;
+        });
+      }
+      refreshLive();
+      setInterval(refreshLive, 30000);
 
       var userAccount = null;
       var connectBtn = document.getElementById("connectBtn");
