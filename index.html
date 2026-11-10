@@ -4,6 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="color-scheme" content="dark" />
+    <meta name="theme-color" content="#06090d" />
     <link rel="icon" href="data:," />
     <title>AgentRune — 4,444 Rune Stones | Preview</title>
     <meta name="description" content="AgentRune: 4,444 rune stones on BNB Chain. First mint free, agent-only, 40 $RUNE per mint. Preview — mint coming soon." />
@@ -41,13 +42,16 @@
         font-size:16px;
         line-height:1.75;
         -webkit-font-smoothing:antialiased;
+        overflow-x:clip;
       }
       img{ display:block; max-width:100%; }
       a{ color:var(--cyan); }
       button, [role="button"], select, summary, input:not([type="checkbox"],[type="radio"]){ min-height:2.25rem; }
+      button, a{ touch-action:manipulation; -webkit-tap-highlight-color:transparent; }
       .display{ font-family:"Cinzel",serif; }
-      .wrap{ width:min(1120px,100% - 40px); margin-inline:auto; }
-      section{ padding:72px 0 8px; }
+      .wrap{ width:min(1120px,100% - 32px); margin-inline:auto; }
+      section{ padding:54px 0 8px; }
+      section[id]{ scroll-margin-top:70px; }
       h2.sec-title{
         font-size:clamp(26px,5.4vw,40px);
         font-weight:900;
@@ -65,9 +69,9 @@
         backdrop-filter:blur(10px);
         border-bottom:1px solid var(--line);
       }
-      .header-in{ display:flex; align-items:center; gap:14px; height:60px; }
+      .header-in{ display:flex; align-items:center; gap:10px; height:56px; }
       .wordmark{
-        font-family:"Cinzel",serif; font-weight:900; font-size:20px; letter-spacing:.14em;
+        font-family:"Cinzel",serif; font-weight:900; font-size:15.5px; letter-spacing:.07em;
         color:var(--ink); text-decoration:none; white-space:nowrap;
       }
       .wordmark span{ color:var(--cyan); }
@@ -77,8 +81,8 @@
       .header-right{ margin-left:auto; display:flex; align-items:center; gap:10px; }
       .lang-toggle{ display:flex; border:1px solid var(--line); border-radius:999px; overflow:hidden; }
       .lang-toggle button{
-        border:0; background:transparent; color:var(--ink-faint); font:inherit; font-size:13px; font-weight:700;
-        padding:6px 13px; cursor:pointer; min-height:36px;
+        border:0; background:transparent; color:var(--ink-faint); font:inherit; font-size:12.5px; font-weight:700;
+        padding:5px 10px; cursor:pointer; min-height:34px; white-space:nowrap;
       }
       .lang-toggle button.active{ background:var(--panel2); color:var(--gold); }
       .btn{
@@ -88,7 +92,7 @@
       }
       .btn-mint-head{
         border-color:var(--gold-deep); color:var(--gold); background:rgba(227,185,89,.07);
-        padding:8px 18px; min-height:40px; font-size:15px;
+        padding:7px 13px; min-height:38px; font-size:14px; white-space:nowrap;
       }
       .btn-mint-head:hover{ background:rgba(227,185,89,.16); }
       .btn-gold{ background:linear-gradient(180deg,#f0cd76,#d9a83f); color:#191204; border-color:#8a6420; }
@@ -96,6 +100,36 @@
       .btn-ghost{ border-color:var(--line); color:var(--ink); background:rgba(13,20,29,.6); }
       .btn-ghost:hover{ border-color:var(--cyan-dim); }
       .btn[disabled]{ opacity:.55; cursor:not-allowed; }
+
+      /* ---------- Hamburger + mobile menu ---------- */
+      .burger{
+        display:inline-flex; flex-direction:column; align-items:center; justify-content:center; gap:5px;
+        width:44px; height:44px; flex:none; padding:0; cursor:pointer;
+        background:transparent; border:1px solid var(--line); border-radius:10px;
+      }
+      .burger span{ display:block; width:20px; height:2px; border-radius:2px; background:var(--ink); transition:transform .25s ease, opacity .2s ease; }
+      .burger:hover{ border-color:var(--cyan-dim); }
+      .burger[aria-expanded="true"] span:nth-child(1){ transform:translateY(7px) rotate(45deg); }
+      .burger[aria-expanded="true"] span:nth-child(2){ opacity:0; }
+      .burger[aria-expanded="true"] span:nth-child(3){ transform:translateY(-7px) rotate(-45deg); }
+      .mobile-menu{
+        border-top:1px solid var(--line);
+        max-height:calc(100dvh - 56px); overflow-y:auto;
+        padding:8px 0 calc(14px + env(safe-area-inset-bottom));
+      }
+      .mobile-menu.open{ animation:menu-in .22s ease; }
+      @keyframes menu-in{ from{ opacity:0; transform:translateY(-6px); } to{ opacity:1; transform:none; } }
+      .mobile-nav{ display:grid; }
+      .mobile-nav a{
+        display:flex; align-items:center; min-height:50px; padding:6px 2px;
+        color:var(--ink); text-decoration:none; font-weight:700; font-size:16px;
+        border-bottom:1px solid rgba(29,42,58,.55);
+      }
+      .mobile-nav a:last-child{ border-bottom:0; }
+      .mobile-nav a:active{ color:var(--cyan); }
+      .mobile-menu-foot{ display:flex; align-items:center; gap:12px; padding:14px 2px 2px; }
+      .mobile-menu-foot .mm-label{ color:var(--ink-faint); font-size:13px; font-weight:700; letter-spacing:.08em; }
+      .mobile-menu-foot .lang-toggle{ margin-left:auto; }
 
       /* ---------- Hero ---------- */
       .hero{ position:relative; overflow:hidden; }
@@ -119,8 +153,8 @@
       .preview-chip::before{ content:""; width:8px; height:8px; border-radius:50%; background:var(--gold); box-shadow:0 0 10px var(--gold); }
       .hero h1{
         font-family:"Cinzel",serif; font-weight:900;
-        font-size:clamp(44px,11.5vw,104px);
-        letter-spacing:.1em; line-height:1.05; margin:22px 0 6px;
+        font-size:clamp(36px,11vw,104px);
+        letter-spacing:.05em; line-height:1.05; margin:22px 0 6px;
         color:#f4eedd; text-shadow:0 4px 34px rgba(0,0,0,.75);
       }
       .hero h1 .rune-part{ color:var(--cyan); text-shadow:0 0 26px rgba(63,210,234,.5), 0 4px 34px rgba(0,0,0,.75); }
@@ -196,6 +230,31 @@
       .tier-count .p{ color:var(--ink-faint); font-size:12.5px; }
       .tier-note{ color:var(--ink-dim); margin-top:16px; font-size:14.5px; }
 
+      /* ---------- Rune map + total presentation ---------- */
+      .map-frame{ border:1px solid var(--line); border-radius:18px; overflow:hidden; background:var(--panel); }
+      .map-frame img{ width:100%; height:auto; }
+      .map-caption{ padding:14px 18px 16px; color:var(--ink-dim); font-size:14px; border-top:1px solid var(--line); }
+      .map-zones{ display:grid; gap:10px; margin-top:16px; }
+      .zone{ display:flex; gap:12px; align-items:flex-start; background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:13px 15px; font-size:14px; color:var(--ink-dim); }
+      .zone b{ color:var(--ink); display:block; font-size:15px; }
+      .zone-dot{ width:14px; height:14px; border-radius:50%; flex:none; margin-top:5px; background:currentColor; box-shadow:0 0 10px currentColor; }
+      .pres-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:10px; margin-top:22px; }
+      .pres-card{ background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); padding:16px 14px; text-align:center; }
+      .pres-card .n{ font-family:"Cinzel",serif; font-size:clamp(26px,6vw,36px); font-weight:900; line-height:1.1; }
+      .pres-card .l{ color:var(--ink-faint); font-size:12.5px; letter-spacing:.06em; margin-top:5px; font-weight:700; }
+      .pres-card.total{ grid-column:1 / -1; border-color:var(--cyan-dim); background:linear-gradient(180deg, rgba(63,210,234,.09), var(--panel) 70%); }
+      .pres-card.total .n{ font-size:clamp(38px,9vw,54px); }
+      .pres-card.mystery{ grid-column:1 / -1; border:1px dashed var(--gold-deep); background:linear-gradient(180deg, rgba(227,185,89,.10), var(--panel) 72%); }
+      .pres-card.mystery .n{ font-size:clamp(52px,13vw,76px); color:var(--gold); text-shadow:0 0 28px rgba(227,185,89,.35); line-height:1; }
+      .pres-card.mystery .l{ color:var(--gold); }
+      .pres-note{ color:var(--ink-dim); font-size:14.5px; margin-top:16px; }
+      @media (min-width:760px){
+        .map-zones{ grid-template-columns:repeat(3,1fr); }
+        .pres-grid{ grid-template-columns:repeat(4,1fr); }
+        .pres-card.total{ grid-column:span 2; }
+        .pres-card.mystery{ grid-column:span 2; }
+      }
+
       /* ---------- Pricing ---------- */
       .price-grid{ display:grid; gap:12px; }
       .price-card{
@@ -215,7 +274,7 @@
         border:1px solid var(--line); border-radius:18px; background:
           radial-gradient(560px 260px at 85% -10%, rgba(63,210,234,.12), transparent 60%),
           var(--panel);
-        padding:30px 26px; display:grid; gap:20px; align-items:center;
+        padding:24px 20px; display:grid; gap:20px; align-items:center;
       }
       .token-big{ font-family:"Cinzel",serif; font-size:clamp(56px,13vw,92px); font-weight:900; line-height:1; color:var(--cyan); }
       .token-big small{ font-size:.42em; color:var(--ink); letter-spacing:.06em; }
@@ -248,7 +307,7 @@
       }
 
       /* ---------- Mint status ---------- */
-      .mint-panel{ border:1px solid var(--line); border-radius:18px; background:var(--panel); padding:26px; }
+      .mint-panel{ border:1px solid var(--line); border-radius:18px; background:var(--panel); padding:20px; }
       .mint-status{ display:flex; align-items:center; gap:10px; font-weight:900; font-size:17px; }
       .status-dot{ width:11px; height:11px; border-radius:50%; background:#e0a23f; box-shadow:0 0 10px #e0a23f; }
       .mint-counter{ font-family:"Cinzel",serif; font-size:clamp(34px,8vw,52px); font-weight:700; margin:14px 0 4px; }
@@ -349,6 +408,16 @@
 
       @media (min-width:760px){
         nav.main{ display:flex; }
+        .burger{ display:none; }
+        .mobile-menu{ display:none !important; }
+        .header-in{ height:60px; gap:14px; }
+        .wordmark{ font-size:20px; letter-spacing:.14em; }
+        .lang-toggle button{ padding:6px 13px; font-size:13px; min-height:36px; }
+        .btn-mint-head{ padding:8px 18px; min-height:40px; font-size:15px; }
+        .hero h1{ letter-spacing:.1em; }
+        .mint-panel{ padding:26px; }
+        section[id]{ scroll-margin-top:76px; }
+        .wrap{ width:min(1120px,100% - 40px); }
         .hero-stats{ grid-template-columns:repeat(4,1fr); }
         .prime-grid{ grid-template-columns:1fr 1fr; gap:44px; }
         .price-grid{ grid-template-columns:1fr 1fr; }
@@ -368,26 +437,36 @@
         .flow{ grid-template-columns:1fr 1fr; }
       }
       @media (max-width:759px){
-        .header-in{ gap:8px; }
-        .wordmark{ font-size:15.5px; letter-spacing:.07em; }
-        .lang-toggle button{ padding:5px 9px; font-size:12px; white-space:nowrap; }
-        .btn-mint-head{ padding:7px 13px; font-size:14px; white-space:nowrap; }
-        .header-right{ gap:8px; }
+        /* Language switch lives inside the hamburger menu on small screens,
+           so the sticky header keeps wordmark + Mint + burger on one row. */
+        .lang-desktop{ display:none; }
+      }
+      @media (max-width:480px){
+        .tier-row{ grid-template-columns:1fr; }
+        .tier-count{ text-align:left; }
+        .price-amt{ margin-left:0; }
+      }
+      @media (max-width:380px){
+        .listing-grid{ grid-template-columns:1fr; }
+        .hero-ctas .btn{ width:100%; }
       }
       @media (prefers-reduced-motion: reduce){
         html{ scroll-behavior:auto; }
+        .burger span{ transition:none; }
+        .mobile-menu.open{ animation:none; }
       }
     </style>
   </head>
   <body>
 
     <!-- ================= HEADER ================= -->
-    <header>
+    <header id="siteHeader">
       <div class="wrap header-in">
         <a class="wordmark" href="#top">AGENT<span>RUNE</span></a>
         <nav class="main">
           <a href="#collection" data-i18n="nav_collection">コレクション</a>
           <a href="#tiers" data-i18n="nav_tiers">ティア</a>
+          <a href="#map" data-i18n="nav_map">地図</a>
           <a href="#pricing" data-i18n="nav_pricing">価格</a>
           <a href="#token" data-i18n="nav_token">トークン</a>
           <a href="#marketplace" data-i18n="nav_market">マーケット</a>
@@ -395,11 +474,34 @@
           <a href="#agent" data-i18n="nav_agent">エージェントミント</a>
         </nav>
         <div class="header-right">
-          <div class="lang-toggle" role="group" aria-label="Language">
+          <div class="lang-toggle lang-desktop" role="group" aria-label="Language">
             <button type="button" id="langJa" class="active">日本語</button>
             <button type="button" id="langEn">EN</button>
           </div>
           <a class="btn btn-mint-head" href="#mint" data-i18n="btn_mint">ミント</a>
+          <button type="button" class="burger" id="menuBtn" aria-expanded="false" aria-controls="mobileMenu" aria-label="メニューを開く"><span></span><span></span><span></span></button>
+        </div>
+      </div>
+      <div class="mobile-menu" id="mobileMenu" hidden>
+        <div class="wrap">
+          <nav class="mobile-nav" aria-label="メインメニュー">
+            <a href="#collection" data-i18n="nav_collection">コレクション</a>
+            <a href="#tiers" data-i18n="nav_tiers">ティア</a>
+            <a href="#map" data-i18n="nav_map">地図</a>
+            <a href="#pricing" data-i18n="nav_pricing">価格</a>
+            <a href="#token" data-i18n="nav_token">トークン</a>
+            <a href="#marketplace" data-i18n="nav_market">マーケット</a>
+            <a href="#contracts" data-i18n="nav_contracts">コントラクト</a>
+            <a href="#agent" data-i18n="nav_agent">エージェントミント</a>
+            <a href="#mint" data-i18n="btn_mint">ミント</a>
+          </nav>
+          <div class="mobile-menu-foot">
+            <span class="mm-label" data-i18n="lang_label">言語</span>
+            <div class="lang-toggle" role="group" aria-label="Language">
+              <button type="button" id="langJaM" class="active">日本語</button>
+              <button type="button" id="langEnM">EN</button>
+            </div>
+          </div>
         </div>
       </div>
     </header>
@@ -519,6 +621,43 @@
           </div>
         </div>
         <p class="tier-note" data-i18n="tier_note">初回ミントはデッキ全体からの抽選です。無料ミントでもAscendedまで当たる可能性があります。Primeは抽選対象外で、3,000 $RUNEの引き換え専用です。デッキ構成はデッキハッシュで事前に固定されています（コントラクト欄を参照）。</p>
+      </div>
+    </section>
+
+    <!-- ================= RUNE MAP + TOTAL PRESENTATION ================= -->
+    <section id="map">
+      <div class="wrap">
+        <div class="sec-rule"></div>
+        <h2 class="sec-title" data-i18n="map_title">ルーンストーンの地図</h2>
+        <p class="sec-sub" data-i18n="map_sub">霧の谷に広がる遺跡群を上空から描いた地図。中央の円形神殿を中心に、石橋と参道が四方の遺跡へ伸び、川沿いや遺跡のあちこちでシアンのルーンが光ります — ただし、この地図に載っていない場所がひとつだけあります。</p>
+        <figure class="map-frame" style="margin:0;">
+          <img src="assets/map.webp" alt="霧の山谷に広がる遺跡群の地図 — 中央の円形神殿、石橋、川、そしてシアンに光るルーンの光点" loading="lazy" width="1920" height="1280" />
+          <figcaption class="map-caption" data-i18n="map_caption">遺跡の地図：中央の円形神殿に光る紋章を核として、石橋と参道が四方の遺跡区画へ放射状に伸びます。川沿いと遺跡に散らばるシアンの光が、ルーンストーンの眠る場所を示します。</figcaption>
+        </figure>
+        <div class="map-zones">
+          <div class="zone"><span class="zone-dot t-dormant"></span><div><b data-i18n="zone1_t">外縁の山麓と森 — Dormant</b><span data-i18n="zone1_b">遺跡を取り囲む岩山と松林のふもと。谷の入口に最も多く眠ります。</span></div></div>
+          <div class="zone"><span class="zone-dot t-awakened"></span><div><b data-i18n="zone2_t">川と石橋 — Awakened</b><span data-i18n="zone2_b">谷を流れる川と、それを渡る石橋の周辺。シアンの光が水辺に集まります。</span></div></div>
+          <div class="zone"><span class="zone-dot t-empowered"></span><div><b data-i18n="zone3_t">四方の遺跡区画 — Empowered</b><span data-i18n="zone3_b">神殿から参道で結ばれた各地の神殿跡と塔。光るルーンが点在します。</span></div></div>
+          <div class="zone"><span class="zone-dot t-ascended"></span><div><b data-i18n="zone4_t">北の高地遺跡 — Ascended</b><span data-i18n="zone4_b">崖の上に立つ門と神殿跡。霧の高い場所にわずかだけ存在します。</span></div></div>
+          <div class="zone"><span class="zone-dot t-prime"></span><div><b data-i18n="zone5_t">中央の円形神殿 — Prime</b><span data-i18n="zone5_b">ID 4444は地図上の石ではなく、円形神殿の中心そのもの。引き換えでのみ姿を現します。</span></div></div>
+          <div class="zone" style="border-style:dashed; border-color:var(--gold-deep);"><span class="zone-dot t-prime"></span><div><b data-i18n="zone6_t">地図外 — Limited</b><span data-i18n="zone6_b">場所も総数も未公開。地図には印がありません。</span></div></div>
+        </div>
+
+        <h3 style="margin:38px 0 6px; font-size:clamp(21px,4.6vw,28px);" data-i18n="pres_title">ルーン総数のプレゼンテーション</h3>
+        <p style="color:var(--ink-dim); margin:0; max-width:640px;" data-i18n="pres_sub">確認済みの総数は以下の通りです。Limitedだけは、総数も場所も意図的に伏せられています。</p>
+        <div class="pres-grid">
+          <div class="pres-card total"><div class="n">4,444</div><div class="l" data-i18n="pres_total">確認済み総数（デッキ4,443 + Prime 1）</div></div>
+          <div class="pres-card mystery"><div class="n">?</div><div class="l" data-i18n="pres_limited">LIMITED — 総数未公開</div></div>
+          <div class="pres-card"><div class="n t-dormant">2,222</div><div class="l">DORMANT · 50.0%</div></div>
+          <div class="pres-card"><div class="n t-awakened">1,333</div><div class="l">AWAKENED · 30.0%</div></div>
+          <div class="pres-card"><div class="n t-empowered">666</div><div class="l">EMPOWERED · 15.0%</div></div>
+          <div class="pres-card"><div class="n t-ascended">222</div><div class="l">ASCENDED · 5.0%</div></div>
+          <div class="pres-card"><div class="n t-prime">1</div><div class="l">PRIME · ID 4444</div></div>
+          <div class="pres-card"><div class="n" style="color:var(--gold);">?</div><div class="l" data-i18n="pres_limited2">LIMITED · ？</div></div>
+          <div class="pres-card"><div class="n">16</div><div class="l" data-i18n="pres_designs">アートワーク種</div></div>
+          <div class="pres-card"><div class="n">5</div><div class="l" data-i18n="pres_zones">地図上のゾーン</div></div>
+        </div>
+        <p class="pres-note" data-i18n="pres_note">Limitedの「？」は欠落ではありません — 総数は発表まで秘密です。地図に印がない場所こそ、最後の謎として残されています。続報は公式発表でお知らせします。</p>
       </div>
     </section>
 
@@ -779,8 +918,24 @@ Read the exact price from the contract before submitting, and show me the total 
       /* ---------- Language toggle (JA default, EN secondary) ---------- */
       var I18N = {
         en: {
-          nav_collection: "Collection", nav_tiers: "Tiers", nav_pricing: "Pricing", nav_agent: "Agent Mint",
+          nav_collection: "Collection", nav_tiers: "Tiers", nav_map: "Map", nav_pricing: "Pricing", nav_agent: "Agent Mint",
+          map_title: "Map of the Rune Stones",
+          map_sub: "A map of the ruined valley seen from above. At its centre stands the circular temple, with stone bridges and causeways reaching out to the ruined districts, and cyan runes glowing along the river and across the ruins — but there is one place this map does not show.",
+          map_caption: "The ruins map: at its core, the glowing sigil inside the circular temple, with bridges and causeways radiating to each district. The cyan lights scattered along the river and ruins mark where the rune stones sleep.",
+          zone1_t: "Outer Foothills & Forest — Dormant", zone1_b: "At the foot of the rocky peaks and pine forest ringing the ruins. The most numerous, sleeping at the valley entrance.",
+          zone2_t: "River & Stone Bridges — Awakened", zone2_b: "Around the river winding through the valley and the stone bridges that cross it, where the cyan glow gathers at the water's edge.",
+          zone3_t: "The Ruined Districts — Empowered", zone3_b: "Temple ruins and towers in every quarter, linked to the centre by causeways and dotted with glowing runes.",
+          zone4_t: "Northern Highland Ruins — Ascended", zone4_b: "Gates and temple ruins standing on the cliffs. Only a few exist, high in the mist.",
+          zone5_t: "Circular Temple Centre — Prime", zone5_b: "ID 4444 is not a stone on the map — it is the heart of the circular temple itself, revealed only by redemption.",
+          zone6_t: "Off the Map — Limited", zone6_b: "Location and total both undisclosed. There is no mark for it on this map.",
+          pres_title: "Total Runes — Presentation",
+          pres_sub: "The confirmed totals are below. Only Limited is deliberately withheld — its count and its location stay secret.",
+          pres_total: "CONFIRMED TOTAL (4,443 DECK + 1 PRIME)",
+          pres_limited: "LIMITED — TOTAL UNDISCLOSED", pres_limited2: "LIMITED · ?",
+          pres_designs: "ARTWORK DESIGNS", pres_zones: "ZONES ON THE MAP",
+          pres_note: "The “?” for Limited is not a gap — the total stays secret until the official reveal. The one place with no mark on the map is the final mystery. Watch for the official announcement.",
           nav_token: "Token", nav_market: "Marketplace", nav_contracts: "Contracts",
+          lang_label: "Language",
           btn_mint: "Mint", btn_mint2: "Mint",
           hero_chip: "PREVIEW — MINT COMING SOON",
           hero_tag: "Ancient runes awaken.",
@@ -880,12 +1035,49 @@ Read the exact price from the contract before submitting, and show me the total 
         });
         document.getElementById("langJa").classList.toggle("active", lang !== "en");
         document.getElementById("langEn").classList.toggle("active", lang === "en");
+        document.getElementById("langJaM").classList.toggle("active", lang !== "en");
+        document.getElementById("langEnM").classList.toggle("active", lang === "en");
         currentLang = lang;
+        syncMenuBtn();
         updateSim();
       }
       var currentLang = "ja";
       document.getElementById("langJa").addEventListener("click", function () { setLang("ja"); });
       document.getElementById("langEn").addEventListener("click", function () { setLang("en"); });
+      document.getElementById("langJaM").addEventListener("click", function () { setLang("ja"); });
+      document.getElementById("langEnM").addEventListener("click", function () { setLang("en"); });
+
+      /* ---------- Hamburger menu (mobile) ---------- */
+      var menuBtn = document.getElementById("menuBtn");
+      var mobileMenu = document.getElementById("mobileMenu");
+      var siteHeader = document.getElementById("siteHeader");
+      var menuOpen = false;
+      function syncMenuBtn() {
+        menuBtn.setAttribute("aria-expanded", menuOpen ? "true" : "false");
+        menuBtn.setAttribute("aria-label",
+          currentLang === "en"
+            ? (menuOpen ? "Close menu" : "Open menu")
+            : (menuOpen ? "メニューを閉じる" : "メニューを開く"));
+      }
+      function setMenu(open) {
+        menuOpen = open;
+        mobileMenu.hidden = !open;
+        mobileMenu.classList.toggle("open", open);
+        syncMenuBtn();
+      }
+      menuBtn.addEventListener("click", function () { setMenu(!menuOpen); });
+      mobileMenu.querySelectorAll("a").forEach(function (link) {
+        link.addEventListener("click", function () { setMenu(false); });
+      });
+      document.addEventListener("click", function (e) {
+        if (menuOpen && !siteHeader.contains(e.target)) setMenu(false);
+      });
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" && menuOpen) { setMenu(false); menuBtn.focus(); }
+      });
+      window.addEventListener("resize", function () {
+        if (menuOpen && window.innerWidth >= 760) setMenu(false);
+      });
 
       /* ---------- Copy prompt ---------- */
       var copyBtn = document.getElementById("copyBtn");
