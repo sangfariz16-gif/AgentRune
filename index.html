@@ -1,0 +1,957 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="dark" />
+    <link rel="icon" href="data:," />
+    <title>AgentRune — 4,444 Rune Stones | Preview</title>
+    <meta name="description" content="AgentRune: 4,444 rune stones on BNB Chain. First mint free, agent-only, 40 $RUNE per mint. Preview — mint coming soon." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Zen+Kaku+Gothic+New:wght@500;700;900&display=swap" rel="stylesheet" />
+    <style>
+      :root{
+        --bg:#06090d;
+        --bg2:#0a0f16;
+        --panel:#0d141d;
+        --panel2:#101926;
+        --line:#1d2a3a;
+        --ink:#e9e4d8;
+        --ink-dim:#a7b0bc;
+        --ink-faint:#6d7a89;
+        --cyan:#3fd2ea;
+        --cyan-dim:#1d7e94;
+        --gold:#e3b959;
+        --gold-deep:#b98a2e;
+        --t-dormant:#8d9aa8;
+        --t-awakened:#3fc6dd;
+        --t-empowered:#e06ba8;
+        --t-ascended:#a78bfa;
+        --t-prime:#eec25e;
+        --radius:14px;
+      }
+      *{ box-sizing:border-box; }
+      html{ scroll-behavior:smooth; }
+      body{
+        margin:0;
+        background:var(--bg);
+        color:var(--ink);
+        font-family:"Zen Kaku Gothic New","Hiragino Kaku Gothic ProN",sans-serif;
+        font-size:16px;
+        line-height:1.75;
+        -webkit-font-smoothing:antialiased;
+      }
+      img{ display:block; max-width:100%; }
+      a{ color:var(--cyan); }
+      button, [role="button"], select, summary, input:not([type="checkbox"],[type="radio"]){ min-height:2.25rem; }
+      .display{ font-family:"Cinzel",serif; }
+      .wrap{ width:min(1120px,100% - 40px); margin-inline:auto; }
+      section{ padding:72px 0 8px; }
+      h2.sec-title{
+        font-size:clamp(26px,5.4vw,40px);
+        font-weight:900;
+        letter-spacing:.04em;
+        margin:0 0 10px;
+        line-height:1.3;
+      }
+      .sec-sub{ color:var(--ink-dim); margin:0 0 30px; max-width:640px; }
+      .sec-rule{ width:56px; height:3px; background:linear-gradient(90deg,var(--gold),transparent); border-radius:2px; margin-bottom:18px; }
+
+      /* ---------- Header ---------- */
+      header{
+        position:sticky; top:0; z-index:50;
+        background:rgba(6,9,13,.86);
+        backdrop-filter:blur(10px);
+        border-bottom:1px solid var(--line);
+      }
+      .header-in{ display:flex; align-items:center; gap:14px; height:60px; }
+      .wordmark{
+        font-family:"Cinzel",serif; font-weight:900; font-size:20px; letter-spacing:.14em;
+        color:var(--ink); text-decoration:none; white-space:nowrap;
+      }
+      .wordmark span{ color:var(--cyan); }
+      nav.main{ display:none; gap:22px; margin-left:18px; }
+      nav.main a{ color:var(--ink-dim); text-decoration:none; font-size:14px; font-weight:700; padding:8px 2px; }
+      nav.main a:hover{ color:var(--ink); }
+      .header-right{ margin-left:auto; display:flex; align-items:center; gap:10px; }
+      .lang-toggle{ display:flex; border:1px solid var(--line); border-radius:999px; overflow:hidden; }
+      .lang-toggle button{
+        border:0; background:transparent; color:var(--ink-faint); font:inherit; font-size:13px; font-weight:700;
+        padding:6px 13px; cursor:pointer; min-height:36px;
+      }
+      .lang-toggle button.active{ background:var(--panel2); color:var(--gold); }
+      .btn{
+        display:inline-flex; align-items:center; justify-content:center; gap:8px;
+        font:inherit; font-weight:700; text-decoration:none; cursor:pointer;
+        border-radius:10px; padding:10px 20px; min-height:44px; border:1px solid transparent;
+      }
+      .btn-mint-head{
+        border-color:var(--gold-deep); color:var(--gold); background:rgba(227,185,89,.07);
+        padding:8px 18px; min-height:40px; font-size:15px;
+      }
+      .btn-mint-head:hover{ background:rgba(227,185,89,.16); }
+      .btn-gold{ background:linear-gradient(180deg,#f0cd76,#d9a83f); color:#191204; border-color:#8a6420; }
+      .btn-gold:hover{ filter:brightness(1.06); }
+      .btn-ghost{ border-color:var(--line); color:var(--ink); background:rgba(13,20,29,.6); }
+      .btn-ghost:hover{ border-color:var(--cyan-dim); }
+      .btn[disabled]{ opacity:.55; cursor:not-allowed; }
+
+      /* ---------- Hero ---------- */
+      .hero{ position:relative; overflow:hidden; }
+      .hero-bg{ position:absolute; inset:0; }
+      .hero-bg img{ width:100%; height:100%; object-fit:cover; object-position:center 38%; }
+      .hero-bg::after{
+        content:""; position:absolute; inset:0;
+        background:
+          linear-gradient(180deg, rgba(6,9,13,.55) 0%, rgba(6,9,13,.28) 34%, rgba(6,9,13,.82) 78%, var(--bg) 100%);
+      }
+      .hero-in{
+        position:relative; z-index:2; text-align:center;
+        padding:clamp(72px,14vh,130px) 0 clamp(56px,9vh,84px);
+      }
+      .preview-chip{
+        display:inline-flex; align-items:center; gap:8px;
+        border:1px solid var(--gold-deep); color:var(--gold);
+        background:rgba(10,8,2,.55); border-radius:999px;
+        font-size:13px; font-weight:700; letter-spacing:.06em; padding:6px 14px;
+      }
+      .preview-chip::before{ content:""; width:8px; height:8px; border-radius:50%; background:var(--gold); box-shadow:0 0 10px var(--gold); }
+      .hero h1{
+        font-family:"Cinzel",serif; font-weight:900;
+        font-size:clamp(44px,11.5vw,104px);
+        letter-spacing:.1em; line-height:1.05; margin:22px 0 6px;
+        color:#f4eedd; text-shadow:0 4px 34px rgba(0,0,0,.75);
+      }
+      .hero h1 .rune-part{ color:var(--cyan); text-shadow:0 0 26px rgba(63,210,234,.5), 0 4px 34px rgba(0,0,0,.75); }
+      .hero-tag{ font-size:clamp(19px,4.6vw,28px); font-weight:900; letter-spacing:.12em; margin:10px 0 0; }
+      .hero-sub{ color:#cfd8e2; max-width:600px; margin:16px auto 0; text-shadow:0 2px 14px rgba(0,0,0,.8); }
+      .hero-meta{
+        margin-top:14px; font-size:13px; letter-spacing:.18em; color:var(--gold); font-weight:700;
+      }
+      .hero-ctas{ display:flex; flex-wrap:wrap; gap:12px; justify-content:center; margin-top:30px; }
+      .hero-stats{
+        position:relative; z-index:2;
+        display:grid; grid-template-columns:repeat(2,1fr); gap:1px;
+        background:var(--line); border:1px solid var(--line); border-radius:var(--radius); overflow:hidden;
+        margin:0 auto 64px;
+      }
+      .hstat{ background:var(--bg2); padding:18px 12px; text-align:center; }
+      .hstat .num{ font-family:"Cinzel",serif; font-size:clamp(24px,5vw,34px); font-weight:700; color:var(--ink); line-height:1.15; }
+      .hstat .num em{ font-style:normal; color:var(--cyan); }
+      .hstat .lbl{ font-size:12.5px; color:var(--ink-faint); letter-spacing:.1em; margin-top:4px; }
+
+      /* ---------- Gallery ---------- */
+      .gal-shell{ position:relative; }
+      .gal-track{
+        display:flex; gap:14px; overflow-x:auto; padding:6px 4px 18px;
+        scroll-snap-type:x mandatory; scrollbar-width:thin; scrollbar-color:var(--line) transparent;
+      }
+      .gal-card{
+        flex:0 0 min(240px,68vw); scroll-snap-align:start;
+        background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); overflow:hidden;
+      }
+      .gal-card img{ width:100%; aspect-ratio:1/1; object-fit:cover; }
+      .gal-info{ padding:12px 14px 14px; display:flex; align-items:baseline; gap:8px; flex-wrap:wrap; }
+      .gal-name{ font-family:"Cinzel",serif; font-weight:700; font-size:17px; letter-spacing:.05em; }
+      .gal-jp{ color:var(--ink-dim); font-size:13px; font-weight:700; }
+      .tier-chip{
+        margin-left:auto; font-size:11px; font-weight:900; letter-spacing:.08em;
+        border:1px solid currentColor; border-radius:999px; padding:2px 9px; white-space:nowrap;
+      }
+      .t-dormant{ color:var(--t-dormant); } .t-awakened{ color:var(--t-awakened); }
+      .t-empowered{ color:var(--t-empowered); } .t-ascended{ color:var(--t-ascended); }
+      .t-prime{ color:var(--t-prime); }
+      .gal-arrows{ display:flex; gap:10px; margin-top:2px; }
+      .gal-arrow{
+        width:44px; height:44px; border-radius:50%; border:1px solid var(--line);
+        background:var(--panel); color:var(--ink); font-size:18px; cursor:pointer;
+      }
+      .gal-arrow:hover{ border-color:var(--cyan-dim); color:var(--cyan); }
+
+      /* ---------- Prime spotlight ---------- */
+      .prime-grid{ display:grid; gap:26px; align-items:center; }
+      .prime-img{ border-radius:18px; border:1px solid #4a3a14; overflow:hidden; box-shadow:0 0 60px rgba(227,185,89,.13); }
+      .prime-img img{ width:100%; aspect-ratio:1/1; object-fit:cover; }
+      .prime-facts{ display:flex; gap:10px; flex-wrap:wrap; margin-top:22px; }
+      .fact{
+        border:1px solid var(--line); background:var(--panel); border-radius:10px; padding:10px 16px;
+        font-size:14px; color:var(--ink-dim);
+      }
+      .fact b{ color:var(--gold); font-family:"Cinzel",serif; font-size:17px; margin-right:6px; }
+
+      /* ---------- Tiers ---------- */
+      .tier-table{ border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; }
+      .tier-row{
+        display:grid; grid-template-columns:1fr auto; gap:4px 14px;
+        padding:16px 18px; background:var(--panel); border-bottom:1px solid var(--line);
+      }
+      .tier-row:last-child{ border-bottom:0; }
+      .tier-row.prime-row{ background:linear-gradient(90deg, rgba(227,185,89,.09), var(--panel) 65%); }
+      .tier-name{ font-family:"Cinzel",serif; font-weight:700; font-size:19px; letter-spacing:.06em; display:flex; align-items:center; gap:10px; }
+      .tier-dot{ width:10px; height:10px; border-radius:50%; background:currentColor; box-shadow:0 0 9px currentColor; flex:none; }
+      .tier-arts{ color:var(--ink-faint); font-size:13px; grid-column:1; }
+      .tier-count{ text-align:right; }
+      .tier-count .n{ font-family:"Cinzel",serif; font-size:22px; font-weight:700; }
+      .tier-count .p{ color:var(--ink-faint); font-size:12.5px; }
+      .tier-note{ color:var(--ink-dim); margin-top:16px; font-size:14.5px; }
+
+      /* ---------- Pricing ---------- */
+      .price-grid{ display:grid; gap:12px; }
+      .price-card{
+        background:var(--panel); border:1px solid var(--line); border-radius:var(--radius);
+        padding:18px 20px; display:flex; align-items:center; gap:16px; flex-wrap:wrap;
+      }
+      .price-card.free{ border-color:var(--cyan-dim); background:linear-gradient(90deg, rgba(63,210,234,.08), var(--panel) 70%); }
+      .price-when{ font-weight:900; font-size:16px; min-width:118px; }
+      .price-amt{ font-family:"Cinzel",serif; font-size:26px; font-weight:700; margin-left:auto; }
+      .price-amt small{ font-size:14px; color:var(--ink-dim); font-family:"Zen Kaku Gothic New",sans-serif; font-weight:700; }
+      .price-amt .free-word{ color:var(--cyan); }
+      .price-desc{ width:100%; color:var(--ink-faint); font-size:13.5px; }
+      .price-summary{ display:flex; gap:10px; flex-wrap:wrap; margin-top:16px; }
+
+      /* ---------- Token ---------- */
+      .token-panel{
+        border:1px solid var(--line); border-radius:18px; background:
+          radial-gradient(560px 260px at 85% -10%, rgba(63,210,234,.12), transparent 60%),
+          var(--panel);
+        padding:30px 26px; display:grid; gap:20px; align-items:center;
+      }
+      .token-big{ font-family:"Cinzel",serif; font-size:clamp(56px,13vw,92px); font-weight:900; line-height:1; color:var(--cyan); }
+      .token-big small{ font-size:.42em; color:var(--ink); letter-spacing:.06em; }
+      .token-note{ color:var(--ink-faint); font-size:13px; }
+
+      /* ---------- Agent mint ---------- */
+      .steps{ display:grid; gap:12px; margin-bottom:26px; }
+      .step{ display:flex; gap:16px; background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); padding:18px 20px; }
+      .step-num{
+        font-family:"Cinzel",serif; font-weight:900; font-size:22px; color:var(--gold);
+        border:1px solid var(--gold-deep); border-radius:50%; width:46px; height:46px; flex:none;
+        display:flex; align-items:center; justify-content:center;
+      }
+      .step h3{ margin:2px 0 4px; font-size:16.5px; }
+      .step p{ margin:0; color:var(--ink-dim); font-size:14.5px; }
+      .prompt-box{ border:1px solid var(--line); border-radius:var(--radius); background:#05080b; overflow:hidden; }
+      .prompt-head{
+        display:flex; align-items:center; gap:10px; padding:12px 16px; border-bottom:1px solid var(--line);
+        font-size:13px; font-weight:700; letter-spacing:.08em; color:var(--ink-dim);
+      }
+      .copy-btn{
+        margin-left:auto; font:inherit; font-size:13.5px; font-weight:700; cursor:pointer;
+        background:var(--panel2); color:var(--gold); border:1px solid var(--gold-deep);
+        border-radius:8px; padding:8px 16px; min-height:38px;
+      }
+      .copy-btn:hover{ background:rgba(227,185,89,.14); }
+      .prompt-box pre{
+        margin:0; padding:18px; white-space:pre-wrap; word-break:break-word;
+        font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:13.5px; line-height:1.7; color:#cfe3ee;
+      }
+
+      /* ---------- Mint status ---------- */
+      .mint-panel{ border:1px solid var(--line); border-radius:18px; background:var(--panel); padding:26px; }
+      .mint-status{ display:flex; align-items:center; gap:10px; font-weight:900; font-size:17px; }
+      .status-dot{ width:11px; height:11px; border-radius:50%; background:#e0a23f; box-shadow:0 0 10px #e0a23f; }
+      .mint-counter{ font-family:"Cinzel",serif; font-size:clamp(34px,8vw,52px); font-weight:700; margin:14px 0 4px; }
+      .mint-counter small{ font-size:.45em; color:var(--ink-faint); }
+      .progress{ height:10px; background:#05080b; border:1px solid var(--line); border-radius:99px; overflow:hidden; margin:12px 0 26px; }
+      .progress-bar{ height:100%; width:0%; background:linear-gradient(90deg,var(--cyan-dim),var(--cyan)); }
+      .sim-title{ font-weight:900; margin-bottom:4px; }
+      .sim-sub{ color:var(--ink-faint); font-size:13.5px; margin:0 0 14px; }
+      .qty-row{ display:flex; gap:8px; flex-wrap:wrap; }
+      .qty-btn{
+        font:inherit; font-weight:900; font-size:16px; cursor:pointer; min-width:56px; min-height:46px;
+        background:var(--bg2); color:var(--ink-dim); border:1px solid var(--line); border-radius:10px; padding:8px 14px;
+      }
+      .qty-btn.active{ color:#08131a; background:var(--cyan); border-color:var(--cyan); }
+      .sim-result{ margin-top:18px; font-size:16px; }
+      .sim-result b{ font-family:"Cinzel",serif; font-size:22px; color:var(--ink); }
+      .sim-result .rune-earn{ color:var(--cyan); font-weight:900; }
+      .mint-action{ margin-top:24px; display:grid; gap:10px; }
+      .mint-action .btn{ width:100%; font-size:16px; }
+      .mint-note{ color:var(--ink-faint); font-size:13.5px; margin:0; }
+
+      /* ---------- Contracts ---------- */
+      .contract-grid{ display:grid; gap:14px; }
+      .contract-card{ background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); padding:22px; display:flex; flex-direction:column; gap:12px; }
+      .contract-card.gold{ border-color:#4a3a14; background:linear-gradient(180deg, rgba(227,185,89,.07), var(--panel) 55%); }
+      .contract-card.cyan{ border-color:var(--cyan-dim); background:linear-gradient(180deg, rgba(63,210,234,.07), var(--panel) 55%); }
+      .contract-top{ display:flex; align-items:flex-start; gap:12px; flex-wrap:wrap; }
+      .contract-icon{ width:48px; height:48px; flex:none; border-radius:12px; border:1px solid var(--line); background:var(--bg2); display:flex; align-items:center; justify-content:center; font-family:"Cinzel",serif; font-weight:900; font-size:19px; color:var(--cyan); }
+      .contract-card.gold .contract-icon{ color:var(--gold); border-color:var(--gold-deep); }
+      .contract-name{ font-family:"Cinzel",serif; font-weight:700; font-size:19px; letter-spacing:.04em; line-height:1.3; }
+      .contract-std{ color:var(--ink-faint); font-size:12.5px; letter-spacing:.08em; font-weight:700; }
+      .contract-status{ margin-left:auto; font-size:11px; font-weight:900; letter-spacing:.07em; border:1px solid #8a6420; color:#e0a23f; border-radius:999px; padding:3px 10px; white-space:nowrap; }
+      .contract-desc{ color:var(--ink-dim); font-size:14px; margin:0; }
+      .contract-addr{ font-family:ui-monospace,Menlo,monospace; font-size:12.5px; color:var(--ink-faint); background:#05080b; border:1px solid var(--line); border-radius:8px; padding:9px 12px; word-break:break-all; }
+      .contract-addr b{ color:var(--ink-dim); font-family:"Zen Kaku Gothic New",sans-serif; letter-spacing:.06em; font-size:11.5px; display:block; margin-bottom:2px; }
+      .fn-list{ list-style:none; margin:0; padding:0; display:grid; gap:6px; }
+      .fn-list li{ font-family:ui-monospace,Menlo,monospace; font-size:12.5px; color:#cfe3ee; background:var(--bg2); border:1px solid var(--line); border-radius:8px; padding:7px 11px; word-break:break-all; }
+      .fn-list li span{ color:var(--ink-faint); font-family:"Zen Kaku Gothic New",sans-serif; margin-left:6px; font-size:12px; }
+      .spec-table{ border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; margin-top:22px; }
+      .spec-row{ display:grid; grid-template-columns:1fr; gap:2px; padding:13px 18px; background:var(--panel); border-bottom:1px solid var(--line); font-size:14px; }
+      .spec-row:last-child{ border-bottom:0; }
+      .spec-k{ color:var(--ink-faint); font-size:12.5px; letter-spacing:.07em; font-weight:700; }
+      .spec-v{ color:var(--ink); font-weight:700; }
+      .flow{ display:grid; gap:10px; margin-top:22px; }
+      .flow-step{ display:flex; gap:14px; align-items:flex-start; background:var(--bg2); border:1px solid var(--line); border-radius:12px; padding:14px 16px; font-size:14px; color:var(--ink-dim); }
+      .flow-step b{ color:var(--ink); }
+      .flow-arrow{ color:var(--gold); font-weight:900; flex:none; font-family:"Cinzel",serif; }
+
+      /* ---------- Tokenomics ---------- */
+      .toke-grid{ display:grid; gap:12px; margin-top:20px; }
+      .toke-card{ background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); padding:18px 20px; }
+      .toke-card .n{ font-family:"Cinzel",serif; font-size:28px; font-weight:700; color:var(--cyan); line-height:1.2; }
+      .toke-card .l{ color:var(--ink-faint); font-size:13px; margin-top:3px; }
+      .toke-note{ color:var(--ink-dim); font-size:14px; margin-top:16px; }
+
+      /* ---------- Marketplace ---------- */
+      .market-steps{ display:grid; gap:12px; margin-bottom:26px; }
+      .fee-grid{ display:grid; gap:12px; margin-bottom:30px; }
+      .fee-card{ background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); padding:18px 20px; text-align:center; }
+      .fee-card .n{ font-family:"Cinzel",serif; font-size:30px; font-weight:700; }
+      .fee-card .l{ color:var(--ink-faint); font-size:13px; margin-top:2px; }
+      .listing-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:14px; }
+      .listing-card{ background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; }
+      .listing-card img{ width:100%; aspect-ratio:1/1; object-fit:cover; }
+      .listing-info{ padding:13px 15px 15px; display:grid; gap:5px; }
+      .listing-name{ font-family:"Cinzel",serif; font-weight:700; font-size:16px; display:flex; align-items:baseline; gap:8px; flex-wrap:wrap; }
+      .listing-price{ display:flex; align-items:baseline; gap:8px; font-size:14px; color:var(--ink-dim); }
+      .listing-price b{ font-family:"Cinzel",serif; font-size:19px; color:var(--ink); }
+      .listing-btn{ margin-top:6px; width:100%; font:inherit; font-weight:700; font-size:14px; min-height:42px; border-radius:9px; border:1px solid var(--line); background:var(--bg2); color:var(--ink-faint); cursor:not-allowed; }
+      .market-note{ color:var(--ink-faint); font-size:13.5px; margin-top:16px; }
+
+      /* ---------- Footer ---------- */
+      footer{ margin-top:88px; border-top:1px solid var(--line); background:var(--bg2); }
+      .footer-in{ padding:38px 0 110px; display:grid; gap:18px; }
+      .footer-brand{ font-family:"Cinzel",serif; font-weight:900; letter-spacing:.14em; font-size:18px; }
+      .footer-brand span{ color:var(--cyan); }
+      .footer-meta{ color:var(--ink-faint); font-size:13.5px; display:flex; gap:8px 20px; flex-wrap:wrap; }
+      .footer-note{ color:var(--ink-faint); font-size:13px; max-width:640px; }
+      .x-share{
+        display:inline-flex; align-items:center; gap:9px; width:fit-content;
+        border:1px solid var(--line); border-radius:10px; padding:10px 18px; min-height:44px;
+        color:var(--ink); text-decoration:none; font-weight:700; font-size:14.5px; background:var(--panel);
+      }
+      .x-share:hover{ border-color:var(--cyan-dim); }
+      .x-share svg{ width:16px; height:16px; fill:currentColor; }
+
+      /* ---------- Mobile mint dock ---------- */
+      .dock{
+        position:fixed; left:0; right:0; bottom:0; z-index:60;
+        background:rgba(8,12,18,.94); backdrop-filter:blur(10px);
+        border-top:1px solid var(--line);
+        padding:10px 16px calc(10px + env(safe-area-inset-bottom));
+        display:flex; align-items:center; gap:12px;
+      }
+      .dock .dock-txt{ font-size:13px; color:var(--ink-dim); line-height:1.45; }
+      .dock .dock-txt b{ color:var(--ink); font-size:14.5px; display:block; }
+      .dock .btn{ margin-left:auto; flex:none; }
+
+      @media (min-width:760px){
+        nav.main{ display:flex; }
+        .hero-stats{ grid-template-columns:repeat(4,1fr); }
+        .prime-grid{ grid-template-columns:1fr 1fr; gap:44px; }
+        .price-grid{ grid-template-columns:1fr 1fr; }
+        .price-card.free{ grid-column:1 / -1; }
+        .token-panel{ grid-template-columns:auto 1fr; gap:40px; padding:40px 44px; }
+        .steps{ grid-template-columns:repeat(3,1fr); }
+        .step{ flex-direction:column; gap:12px; }
+        .dock{ display:none; }
+        .footer-in{ padding-bottom:44px; }
+        section{ padding-top:88px; }
+        .contract-grid{ grid-template-columns:repeat(3,1fr); }
+        .toke-grid{ grid-template-columns:repeat(4,1fr); }
+        .fee-grid{ grid-template-columns:repeat(3,1fr); }
+        .market-steps{ grid-template-columns:repeat(3,1fr); }
+        .listing-grid{ grid-template-columns:repeat(4,1fr); }
+        .spec-row{ grid-template-columns:220px 1fr; gap:14px; align-items:baseline; }
+        .flow{ grid-template-columns:1fr 1fr; }
+      }
+      @media (max-width:759px){
+        .header-in{ gap:8px; }
+        .wordmark{ font-size:15.5px; letter-spacing:.07em; }
+        .lang-toggle button{ padding:5px 9px; font-size:12px; white-space:nowrap; }
+        .btn-mint-head{ padding:7px 13px; font-size:14px; white-space:nowrap; }
+        .header-right{ gap:8px; }
+      }
+      @media (prefers-reduced-motion: reduce){
+        html{ scroll-behavior:auto; }
+      }
+    </style>
+  </head>
+  <body>
+
+    <!-- ================= HEADER ================= -->
+    <header>
+      <div class="wrap header-in">
+        <a class="wordmark" href="#top">AGENT<span>RUNE</span></a>
+        <nav class="main">
+          <a href="#collection" data-i18n="nav_collection">コレクション</a>
+          <a href="#tiers" data-i18n="nav_tiers">ティア</a>
+          <a href="#pricing" data-i18n="nav_pricing">価格</a>
+          <a href="#token" data-i18n="nav_token">トークン</a>
+          <a href="#marketplace" data-i18n="nav_market">マーケット</a>
+          <a href="#contracts" data-i18n="nav_contracts">コントラクト</a>
+          <a href="#agent" data-i18n="nav_agent">エージェントミント</a>
+        </nav>
+        <div class="header-right">
+          <div class="lang-toggle" role="group" aria-label="Language">
+            <button type="button" id="langJa" class="active">日本語</button>
+            <button type="button" id="langEn">EN</button>
+          </div>
+          <a class="btn btn-mint-head" href="#mint" data-i18n="btn_mint">ミント</a>
+        </div>
+      </div>
+    </header>
+
+    <!-- ================= HERO ================= -->
+    <div class="hero" id="top">
+      <div class="hero-bg"><img src="assets/hero.webp" alt="シアンに光る回路状のルーンが刻まれた古代のルーンストーン" fetchpriority="high" /></div>
+      <div class="wrap hero-in">
+        <span class="preview-chip" data-i18n="hero_chip">プレビュー — ミントは近日開始</span>
+        <h1>AGENT<span class="rune-part">RUNE</span></h1>
+        <p class="hero-tag" data-i18n="hero_tag">古代のルーンが目覚める。</p>
+        <p class="hero-sub" data-i18n="hero_sub">遺跡の奥深くで眠る4,444個のルーンストーン。初回ミントは無料のデッキ抽選で、ミントのたびに40 $RUNEを獲得。最上位のPrimeは3,000 $RUNEで引き換える唯一の1点ものです。</p>
+        <p class="hero-meta">BNB CHAIN · BEP-721 · AGENT-ONLY MINT</p>
+        <div class="hero-ctas">
+          <a class="btn btn-gold" href="#agent" data-i18n="hero_cta1">エージェントでミントする</a>
+          <a class="btn btn-ghost" href="#collection" data-i18n="hero_cta2">コレクションを見る</a>
+        </div>
+      </div>
+      <div class="wrap">
+        <div class="hero-stats">
+          <div class="hstat"><div class="num">4,444</div><div class="lbl" data-i18n="stat_supply">総供給量</div></div>
+          <div class="hstat"><div class="num">5</div><div class="lbl" data-i18n="stat_tiers">ティア</div></div>
+          <div class="hstat"><div class="num"><em>40</em> $RUNE</div><div class="lbl" data-i18n="stat_token">ミントごとの報酬</div></div>
+          <div class="hstat"><div class="num"><em data-i18n="stat_free_word">無料</em></div><div class="lbl" data-i18n="stat_free">初回ミント</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= COLLECTION ================= -->
+    <section id="collection">
+      <div class="wrap">
+        <div class="sec-rule"></div>
+        <h2 class="sec-title" data-i18n="gal_title">ルーン・コレクション</h2>
+        <p class="sec-sub" data-i18n="gal_sub">16種のアートワーク — 15種のエレメンタルルーンと、唯一無二のPrime。横にスワイプして全種をご覧ください。</p>
+        <div class="gal-shell">
+          <div class="gal-track" id="galTrack">
+            <!-- Dormant -->
+            <article class="gal-card"><img src="assets/ember.webp" alt="炎のルーンストーン Ember" loading="lazy" /><div class="gal-info"><span class="gal-name">Ember</span><span class="gal-jp">炎</span><span class="tier-chip t-dormant">DORMANT</span></div></article>
+            <article class="gal-card"><img src="assets/frost.webp" alt="氷のルーンストーン Frost" loading="lazy" /><div class="gal-info"><span class="gal-name">Frost</span><span class="gal-jp">氷</span><span class="tier-chip t-dormant">DORMANT</span></div></article>
+            <article class="gal-card"><img src="assets/verdant.webp" alt="森のルーンストーン Verdant" loading="lazy" /><div class="gal-info"><span class="gal-name">Verdant</span><span class="gal-jp">森</span><span class="tier-chip t-dormant">DORMANT</span></div></article>
+            <article class="gal-card"><img src="assets/terra.webp" alt="大地のルーンストーン Terra" loading="lazy" /><div class="gal-info"><span class="gal-name">Terra</span><span class="gal-jp">大地</span><span class="tier-chip t-dormant">DORMANT</span></div></article>
+            <!-- Awakened -->
+            <article class="gal-card"><img src="assets/storm.webp" alt="嵐のルーンストーン Storm" loading="lazy" /><div class="gal-info"><span class="gal-name">Storm</span><span class="gal-jp">嵐</span><span class="tier-chip t-awakened">AWAKENED</span></div></article>
+            <article class="gal-card"><img src="assets/tide.webp" alt="潮のルーンストーン Tide" loading="lazy" /><div class="gal-info"><span class="gal-name">Tide</span><span class="gal-jp">潮</span><span class="tier-chip t-awakened">AWAKENED</span></div></article>
+            <article class="gal-card"><img src="assets/gale.webp" alt="風のルーンストーン Gale" loading="lazy" /><div class="gal-info"><span class="gal-name">Gale</span><span class="gal-jp">風</span><span class="tier-chip t-awakened">AWAKENED</span></div></article>
+            <article class="gal-card"><img src="assets/rust.webp" alt="錆のルーンストーン Rust" loading="lazy" /><div class="gal-info"><span class="gal-name">Rust</span><span class="gal-jp">錆</span><span class="tier-chip t-awakened">AWAKENED</span></div></article>
+            <!-- Empowered -->
+            <article class="gal-card"><img src="assets/solar.webp" alt="太陽のルーンストーン Solar" loading="lazy" /><div class="gal-info"><span class="gal-name">Solar</span><span class="gal-jp">太陽</span><span class="tier-chip t-empowered">EMPOWERED</span></div></article>
+            <article class="gal-card"><img src="assets/arcane.webp" alt="秘術のルーンストーン Arcane" loading="lazy" /><div class="gal-info"><span class="gal-name">Arcane</span><span class="gal-jp">秘術</span><span class="tier-chip t-empowered">EMPOWERED</span></div></article>
+            <article class="gal-card"><img src="assets/chrono.webp" alt="時のルーンストーン Chrono" loading="lazy" /><div class="gal-info"><span class="gal-name">Chrono</span><span class="gal-jp">時</span><span class="tier-chip t-empowered">EMPOWERED</span></div></article>
+            <article class="gal-card"><img src="assets/astral.webp" alt="星のルーンストーン Astral" loading="lazy" /><div class="gal-info"><span class="gal-name">Astral</span><span class="gal-jp">星</span><span class="tier-chip t-empowered">EMPOWERED</span></div></article>
+            <!-- Ascended -->
+            <article class="gal-card"><img src="assets/void.webp" alt="虚空のルーンストーン Void" loading="lazy" /><div class="gal-info"><span class="gal-name">Void</span><span class="gal-jp">虚空</span><span class="tier-chip t-ascended">ASCENDED</span></div></article>
+            <article class="gal-card"><img src="assets/blood.webp" alt="血のルーンストーン Blood" loading="lazy" /><div class="gal-info"><span class="gal-name">Blood</span><span class="gal-jp">血</span><span class="tier-chip t-ascended">ASCENDED</span></div></article>
+            <article class="gal-card"><img src="assets/hero.webp" alt="回路のルーンストーン Circuit" loading="lazy" /><div class="gal-info"><span class="gal-name">Circuit</span><span class="gal-jp">回路</span><span class="tier-chip t-ascended">ASCENDED</span></div></article>
+            <!-- Prime -->
+            <article class="gal-card"><img src="assets/limited.webp" alt="Primeのルーンストーン — 黒曜石と金の稲妻" loading="lazy" /><div class="gal-info"><span class="gal-name">Prime</span><span class="gal-jp">原初</span><span class="tier-chip t-prime">PRIME · 1/1</span></div></article>
+          </div>
+          <div class="gal-arrows">
+            <button type="button" class="gal-arrow" id="galPrev" aria-label="前へ">‹</button>
+            <button type="button" class="gal-arrow" id="galNext" aria-label="次へ">›</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= PRIME SPOTLIGHT ================= -->
+    <section id="prime">
+      <div class="wrap">
+        <div class="prime-grid">
+          <div class="prime-img"><img src="assets/limited.webp" alt="黒曜石に金の稲妻と虹色の亀裂が走るPrimeルーンストーン" loading="lazy" /></div>
+          <div>
+            <div class="sec-rule"></div>
+            <h2 class="sec-title"><span class="display" style="color:var(--t-prime);">PRIME</span> — <span data-i18n="prime_title_rest">ただ1つだけ存在するルーン</span></h2>
+            <p class="sec-sub" style="margin-bottom:0;" data-i18n="prime_body">黒曜石の亀裂に金の稲妻と虹色の光が走る、コレクション唯一の1点もの（トークンID 4444）。デッキ抽選には含まれず、ミントでは当たりません。3,000 $RUNEをバーンして引き換えたウォレットだけが手に入れられます — 先着1名のみです。</p>
+            <div class="prime-facts">
+              <div class="fact"><b>1</b><span data-i18n="prime_fact1">点のみ存在</span></div>
+              <div class="fact"><b>3,000</b><span data-i18n="prime_fact2">$RUNEで引き換え</span></div>
+              <div class="fact"><b>#4444</b><span data-i18n="prime_fact3">専用トークンID</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= TIERS ================= -->
+    <section id="tiers">
+      <div class="wrap">
+        <div class="sec-rule"></div>
+        <h2 class="sec-title" data-i18n="tier_title">ティアと供給量</h2>
+        <p class="sec-sub" data-i18n="tier_sub">デッキは4,443体（Dormant〜Ascended）で、ミントはシャッフル済みデッキからの抽選制 — レアリティはトークンIDの範囲では決まりません。Prime（ID 4444）はデッキ外の別枠で、合計4,444体になります。</p>
+        <div class="tier-table">
+          <div class="tier-row">
+            <div class="tier-name t-dormant"><span class="tier-dot"></span>Dormant</div>
+            <div class="tier-count"><span class="n">2,222</span> <span class="p">/ 50.0%</span></div>
+            <div class="tier-arts">Ember · Frost · Verdant · Terra</div>
+          </div>
+          <div class="tier-row">
+            <div class="tier-name t-awakened"><span class="tier-dot"></span>Awakened</div>
+            <div class="tier-count"><span class="n">1,333</span> <span class="p">/ 30.0%</span></div>
+            <div class="tier-arts">Storm · Tide · Gale · Rust</div>
+          </div>
+          <div class="tier-row">
+            <div class="tier-name t-empowered"><span class="tier-dot"></span>Empowered</div>
+            <div class="tier-count"><span class="n">666</span> <span class="p">/ 15.0%</span></div>
+            <div class="tier-arts">Solar · Arcane · Chrono · Astral</div>
+          </div>
+          <div class="tier-row">
+            <div class="tier-name t-ascended"><span class="tier-dot"></span>Ascended</div>
+            <div class="tier-count"><span class="n">222</span> <span class="p">/ 5.0%</span></div>
+            <div class="tier-arts">Void · Blood · Circuit</div>
+          </div>
+          <div class="tier-row prime-row">
+            <div class="tier-name t-prime"><span class="tier-dot"></span>Prime</div>
+            <div class="tier-count"><span class="n">1</span> <span class="p">/ 0.02%</span></div>
+            <div class="tier-arts" data-i18n="tier_prime_arts">黒曜石と金の稲妻 — 1点もの</div>
+          </div>
+        </div>
+        <p class="tier-note" data-i18n="tier_note">初回ミントはデッキ全体からの抽選です。無料ミントでもAscendedまで当たる可能性があります。Primeは抽選対象外で、3,000 $RUNEの引き換え専用です。デッキ構成はデッキハッシュで事前に固定されています（コントラクト欄を参照）。</p>
+      </div>
+    </section>
+
+    <!-- ================= PRICING ================= -->
+    <section id="pricing">
+      <div class="wrap">
+        <div class="sec-rule"></div>
+        <h2 class="sec-title" data-i18n="price_title">ミント価格</h2>
+        <p class="sec-sub" data-i18n="price_sub">価格はウォレットごとの累計ミント数で決まる階段制です。下記の金額は目安で、実際の金額はミント時にエージェントがコントラクトから正確に読み取ります。</p>
+        <div class="price-grid">
+          <div class="price-card free">
+            <div class="price-when" data-i18n="price_1_when">1回目のミント</div>
+            <div class="price-amt"><span class="free-word display" data-i18n="price_free_word">FREE</span></div>
+            <div class="price-desc" data-i18n="price_1_desc">Agent ID必須。デッキ全体からの抽選 — Ascendedまで当たります。ガス代のみ。</div>
+          </div>
+          <div class="price-card">
+            <div class="price-when" data-i18n="price_2_when">2〜10回目</div>
+            <div class="price-amt">0.0002 <small>BNB / <span data-i18n="per_mint">ミント</span></small></div>
+          </div>
+          <div class="price-card">
+            <div class="price-when" data-i18n="price_3_when">11〜20回目</div>
+            <div class="price-amt">0.0004 <small>BNB / <span data-i18n="per_mint2">ミント</span></small></div>
+          </div>
+          <div class="price-card">
+            <div class="price-when" data-i18n="price_4_when">21〜30回目</div>
+            <div class="price-amt">0.0008 <small>BNB / <span data-i18n="per_mint3">ミント</span></small></div>
+          </div>
+          <div class="price-card">
+            <div class="price-when" data-i18n="price_max_when">ウォレット上限</div>
+            <div class="price-amt">30 <small data-i18n="price_max_unit">体まで</small></div>
+            <div class="price-desc" data-i18n="price_max_desc">30体すべてミントした場合の合計は最大0.0138 BNBです。</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= TOKEN ================= -->
+    <section id="token">
+      <div class="wrap">
+        <div class="sec-rule"></div>
+        <h2 class="sec-title">$RUNE <span data-i18n="token_title_rest">トークン</span></h2>
+        <div class="token-panel">
+          <div class="token-big">40 <small>$RUNE</small></div>
+          <div>
+            <p style="margin:0 0 8px; font-weight:700;" data-i18n="token_body1">ミントするたびに40 $RUNEを獲得。無料の初回ミントも対象です。</p>
+            <p style="margin:0; color:var(--ink-dim);" data-i18n="token_body2">30体ミントすれば1ウォレットで最大1,200 $RUNE。貯めた $RUNE はすべてバーンして使います — 下記のユーティリティがコントラクトに実装済みです。</p>
+            <p class="token-note" data-i18n="token_note">※ $RUNE / ARUNE は仮称です（シンボルは未確定）。</p>
+          </div>
+        </div>
+        <div class="toke-grid">
+          <div class="toke-card"><div class="n">444,444</div><div class="l" data-i18n="toke_cap">総供給上限（キャップ）$RUNE</div></div>
+          <div class="toke-card"><div class="n">40</div><div class="l" data-i18n="toke_per">ミントごとの付与 $RUNE（無料分も含む）</div></div>
+          <div class="toke-card"><div class="n">1,200</div><div class="l" data-i18n="toke_max">ミント付与の上限 / ウォレット（30体分）</div></div>
+          <div class="toke-card"><div class="n">BEP-20</div><div class="l" data-i18n="toke_std">規格 · 18 decimals · ミント権限はNFTコントラクトのみ</div></div>
+        </div>
+        <h3 style="margin:30px 0 6px; font-size:20px;" data-i18n="util_title">$RUNE の使い道（すべてバーン）</h3>
+        <p style="color:var(--ink-dim); margin:0 0 16px; font-size:14.5px;" data-i18n="util_sub">使われた $RUNE はコントラクトが burnFrom で焼却します。循環供給は増え続けません。</p>
+        <div class="tier-table">
+          <div class="tier-row"><div class="tier-name" style="font-size:16.5px;" data-i18n="util_r1">NFTをバーンして $RUNE に戻す</div><div class="tier-count"><span class="n" style="font-size:18px;">40 / 100 / 240 / 600</span></div><div class="tier-arts" data-i18n="util_r1d">Dormant 40 · Awakened 100 · Empowered 240 · Ascended 600（Primeはバーン不可）</div></div>
+          <div class="tier-row"><div class="tier-name" style="font-size:16.5px;" data-i18n="util_r2">アップグレード（3体 → 上位1体）</div><div class="tier-count"><span class="n" style="font-size:18px;">+100 / +200 / +400</span></div><div class="tier-arts" data-i18n="util_r2d">Dormant×3 +100 → Awakened · Awakened×3 +200 → Empowered · Empowered×3 +400 → Ascended</div></div>
+          <div class="tier-row"><div class="tier-name" style="font-size:16.5px;" data-i18n="util_r3">$RUNE でミント（mintWithToken）</div><div class="tier-count"><span class="n" style="font-size:18px;">200 / <span data-i18n="per_mint4">体</span></span></div><div class="tier-arts" data-i18n="util_r3d">1ウォレット最大3体まで。無料ミント枠は消費しません</div></div>
+          <div class="tier-row prime-row"><div class="tier-name t-prime" style="font-size:16.5px;">Prime <span data-i18n="util_r4">を引き換える</span></div><div class="tier-count"><span class="n" style="font-size:18px;">3,000</span></div><div class="tier-arts" data-i18n="util_r4d">トークンID 4444 · 先着1名のみ · デッキ抽選では当たりません</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= MARKETPLACE ================= -->
+    <section id="marketplace">
+      <div class="wrap">
+        <div class="sec-rule"></div>
+        <h2 class="sec-title" data-i18n="market_title">マーケットプレイス</h2>
+        <p class="sec-sub" data-i18n="market_sub">公式エスクロー型マーケットプレイス（AgentRuneMarketplace）。出品するとNFTはコントラクトに預けられ、売れた瞬間にBNBとNFTが同時に交換されます。仲介者はいません。</p>
+        <div class="fee-grid">
+          <div class="fee-card"><div class="n" style="color:var(--cyan);">0%</div><div class="l" data-i18n="fee_platform">プラットフォーム手数料</div></div>
+          <div class="fee-card"><div class="n" style="color:var(--gold);">5%</div><div class="l" data-i18n="fee_royalty">ロイヤリティ（ERC-2981 · クリエイターへ）</div></div>
+          <div class="fee-card"><div class="n">95%</div><div class="l" data-i18n="fee_seller">売り手の受取分</div></div>
+        </div>
+        <div class="market-steps">
+          <div class="step"><div class="step-num">1</div><div><h3 data-i18n="mstep1_t">出品する — list(tokenId, price)</h3><p data-i18n="mstep1_b">価格をBNBで指定して出品。NFTはマーケットコントラクトにエスクローされます。価格変更（updatePrice）やキャンセル（cancel）はいつでも可能で、キャンセルでNFTが戻ります。</p></div></div>
+          <div class="step"><div class="step-num">2</div><div><h3 data-i18n="mstep2_t">購入する — buy(tokenId)</h3><p data-i18n="mstep2_b">表示価格ちょうどのBNBで購入。支払いはその場で分配されます：ロイヤリティ5%がクリエイターへ、残り95%が売り手へ。手数料は0%です。</p></div></div>
+          <div class="step"><div class="step-num">3</div><div><h3 data-i18n="mstep3_t">エージェント経由でも取引可能</h3><p data-i18n="mstep3_b">出品・購入・キャンセルはすべてオンチェーン関数です。エージェントに tokenId と価格を伝えるだけで実行できます。出品一覧は getListedIds() で誰でも確認できます。</p></div></div>
+        </div>
+        <h3 style="margin:0 0 14px; font-size:19px;" data-i18n="listing_title">出品プレビュー</h3>
+        <div class="listing-grid">
+          <article class="listing-card"><img src="assets/ember.webp" alt="Emberのルーンストーン" loading="lazy" /><div class="listing-info"><span class="listing-name">Ember <span class="tier-chip t-dormant">DORMANT</span></span><span class="listing-price"><span data-i18n="listing_price">価格</span> <b>— BNB</b></span><button type="button" class="listing-btn" disabled data-i18n="listing_btn">近日公開</button></div></article>
+          <article class="listing-card"><img src="assets/storm.webp" alt="Stormのルーンストーン" loading="lazy" /><div class="listing-info"><span class="listing-name">Storm <span class="tier-chip t-awakened">AWAKENED</span></span><span class="listing-price"><span data-i18n="listing_price2">価格</span> <b>— BNB</b></span><button type="button" class="listing-btn" disabled data-i18n="listing_btn2">近日公開</button></div></article>
+          <article class="listing-card"><img src="assets/solar.webp" alt="Solarのルーンストーン" loading="lazy" /><div class="listing-info"><span class="listing-name">Solar <span class="tier-chip t-empowered">EMPOWERED</span></span><span class="listing-price"><span data-i18n="listing_price3">価格</span> <b>— BNB</b></span><button type="button" class="listing-btn" disabled data-i18n="listing_btn3">近日公開</button></div></article>
+          <article class="listing-card"><img src="assets/void.webp" alt="Voidのルーンストーン" loading="lazy" /><div class="listing-info"><span class="listing-name">Void <span class="tier-chip t-ascended">ASCENDED</span></span><span class="listing-price"><span data-i18n="listing_price4">価格</span> <b>— BNB</b></span><button type="button" class="listing-btn" disabled data-i18n="listing_btn4">近日公開</button></div></article>
+        </div>
+        <p class="market-note" data-i18n="market_note">現在出品はまだありません — 上記は表示レイアウトのプレビューで、実際の出品ではありません。マーケットはコントラクトのデプロイ後にオープンします。Element Marketへの掲載もローンチ時に案内します。</p>
+      </div>
+    </section>
+
+    <!-- ================= SMART CONTRACTS ================= -->
+    <section id="contracts">
+      <div class="wrap">
+        <div class="sec-rule"></div>
+        <h2 class="sec-title" data-i18n="contract_title">スマートコントラクト</h2>
+        <p class="sec-sub" data-i18n="contract_sub">AgentRuneは3つのコントラクトで構成されます。ソースコードは完成し、テスト11/11を通過済み。まだデプロイはされておらず、アドレスはローンチ時にここへ公開されます。</p>
+        <div class="contract-grid">
+          <article class="contract-card cyan">
+            <div class="contract-top"><div class="contract-icon">◈</div><div><div class="contract-name">AgentRune</div><div class="contract-std">NFT · BEP-721 / ERC-2981</div></div><span class="contract-status" data-i18n="status_ready">テスト済 · 未デプロイ</span></div>
+            <p class="contract-desc" data-i18n="c1_desc">シンボル ARUNE。デッキ抽選ミントの中核コントラクト。供給はデッキ4,443体 + Prime 1体（ID 4444）。SPACE ID Agent IDによるエージェント専用ゲート、価格ラダー、ロイヤリティ5%を実装。</p>
+            <ul class="fn-list">
+              <li>mint(quantity)<span data-i18n="c1_f1">BNBミント（ラダー価格）</span></li>
+              <li>mintWithToken(quantity)<span>200 $RUNE / <span data-i18n="per_mint5">体</span> · <span data-i18n="c1_f2">最大3体</span></span></li>
+              <li>burn(tokenId)<span data-i18n="c1_f3">ティア別に $RUNE へ還元</span></li>
+              <li>upgrade(id1, id2, id3)<span data-i18n="c1_f4">3体 + $RUNE → 上位1体</span></li>
+              <li>redeemPrime()<span>3,000 $RUNE → ID 4444</span></li>
+              <li>quoteBulk(wallet, qty)<span data-i18n="c1_f6">合計価格の事前確認</span></li>
+              <li>rarityOf(tokenId)<span data-i18n="c1_f7">デッキビットマップから判定</span></li>
+            </ul>
+            <div class="contract-addr"><b data-i18n="addr_label">コントラクトアドレス</b><span data-i18n="addr_tba">デプロイ後に公開（TBA）</span></div>
+          </article>
+          <article class="contract-card">
+            <div class="contract-top"><div class="contract-icon" style="color:var(--cyan);">R</div><div><div class="contract-name">RuneToken</div><div class="contract-std">TOKEN · BEP-20 / ERC20CAPPED</div></div><span class="contract-status" data-i18n="status_ready2">テスト済 · 未デプロイ</span></div>
+            <p class="contract-desc" data-i18n="c2_desc">シンボル $RUNE。供給上限444,444枚のキャップ付きトークン。発行できるのはNFTコントラクトだけ（minter-gated）で、使われた分はすべてバーンされます。Xリポスト等のオフチェーン報酬システムは持ちません。</p>
+            <ul class="fn-list">
+              <li>mint(to, amount)<span data-i18n="c2_f1">NFTコントラクト専用（ミント報酬）</span></li>
+              <li>burnFrom(from, amount)<span data-i18n="c2_f2">バーン / アップグレード / 引き換え</span></li>
+              <li>setMinter(addr, bool)<span data-i18n="c2_f3">オーナーのみ</span></li>
+              <li>MAX_SUPPLY = 444,444<span data-i18n="c2_f4">上限固定</span></li>
+            </ul>
+            <div class="contract-addr"><b data-i18n="addr_label2">コントラクトアドレス</b><span data-i18n="addr_tba2">デプロイ後に公開（TBA）</span></div>
+          </article>
+          <article class="contract-card gold">
+            <div class="contract-top"><div class="contract-icon">M</div><div><div class="contract-name">AgentRuneMarketplace</div><div class="contract-std">MARKET · ESCROW</div></div><span class="contract-status" data-i18n="status_ready3">テスト済 · 未デプロイ</span></div>
+            <p class="contract-desc" data-i18n="c3_desc">固定価格のエスクロー型マーケット。手数料0%。購入時に ERC-2981 でロイヤリティを読み取り（取得できない場合は5%を収益ウォレットへ）、残りを売り手へ送ります。</p>
+            <ul class="fn-list">
+              <li>list(tokenId, price)<span data-i18n="c3_f1">出品（NFTをエスクロー）</span></li>
+              <li>buy(tokenId)<span data-i18n="c3_f2">購入（95% 売り手 / 5% ロイヤリティ）</span></li>
+              <li>cancel(tokenId)<span data-i18n="c3_f3">出品取消（NFT返却）</span></li>
+              <li>updatePrice(tokenId, price)<span data-i18n="c3_f4">価格変更</span></li>
+              <li>getListedIds()<span data-i18n="c3_f5">出品一覧の取得</span></li>
+            </ul>
+            <div class="contract-addr"><b data-i18n="addr_label3">コントラクトアドレス</b><span data-i18n="addr_tba3">デプロイ後に公開（TBA）</span></div>
+          </article>
+        </div>
+
+        <div class="spec-table">
+          <div class="spec-row"><span class="spec-k" data-i18n="spec_chain_k">チェーン / 規格</span><span class="spec-v">BNB Chain (56) · BEP-721 + BEP-20</span></div>
+          <div class="spec-row"><span class="spec-k" data-i18n="spec_deck_k">デッキ</span><span class="spec-v" data-i18n="spec_deck_v">4,443体 · シード「AGENTRUNE」· 35ワードのレアリティビットマップ</span></div>
+          <div class="spec-row"><span class="spec-k">DECK HASH</span><span class="spec-v" style="font-family:ui-monospace,Menlo,monospace; font-size:12.5px; word-break:break-all;">0x48ba2ea5d13d124e7b87aca5955a2d00ecd60adb879dc63f9b0d26c1712f1e76</span></div>
+          <div class="spec-row"><span class="spec-k" data-i18n="spec_gate_k">ミントゲート</span><span class="spec-v" data-i18n="spec_gate_v">エージェント専用 — SPACE ID Agent ID の保有をオンチェーンで確認（コントラクト経由の呼び出しは不可）</span></div>
+          <div class="spec-row"><span class="spec-k" data-i18n="spec_rev_k">収益 / ロイヤリティ</span><span class="spec-v" data-i18n="spec_rev_v">ミント収益は取引ごとに収益ウォレットへ送金 · ロイヤリティ5%（ERC-2981）</span></div>
+          <div class="spec-row"><span class="spec-k" data-i18n="spec_test_k">検証</span><span class="spec-v" data-i18n="spec_test_v">自動テスト 11/11 通過（ミント / ラダー / バーン / アップグレード / Prime引き換え / マーケット売買）· BscScanでソース検証予定</span></div>
+        </div>
+
+        <div class="flow">
+          <div class="flow-step"><span class="flow-arrow">→</span><p style="margin:0;" data-i18n="flow1"><b>ミントの流れ：</b>エージェントが mint() を呼ぶ → デッキから抽選 → NFT付与 + 40 $RUNE 発行 → 収益は収益ウォレットへ。</p></div>
+          <div class="flow-step"><span class="flow-arrow">→</span><p style="margin:0;" data-i18n="flow2"><b>取引の流れ：</b>売り手が list() でNFTをエスクロー → 買い手が buy() → ロイヤリティ5% / 売り手95% に分配され、NFTが買い手へ。</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= AGENT MINT ================= -->
+    <section id="agent">
+      <div class="wrap">
+        <div class="sec-rule"></div>
+        <h2 class="sec-title" data-i18n="agent_title">エージェントでミントする方法</h2>
+        <p class="sec-sub" data-i18n="agent_sub">AgentRuneはエージェント専用ミントです。Binance Agentic WalletとSPACE IDのAgent IDがあれば、プロンプトを送るだけでミントできます。</p>
+        <div class="steps">
+          <div class="step"><div class="step-num">1</div><div><h3 data-i18n="step1_t">Agent IDを用意する</h3><p data-i18n="step1_b">Binance Agentic Walletで、SPACE IDのAgent IDを登録したウォレットを準備します。</p></div></div>
+          <div class="step"><div class="step-num">2</div><div><h3 data-i18n="step2_t">プロンプトを送る</h3><p data-i18n="step2_b">下のプロンプトをコピーして、そのままエージェントに送信します。</p></div></div>
+          <div class="step"><div class="step-num">3</div><div><h3 data-i18n="step3_t">エージェントがミント</h3><p data-i18n="step3_b">エージェントがコントラクトから価格を読み取り、内容を確認してミントを実行します。</p></div></div>
+        </div>
+        <div class="prompt-box">
+          <div class="prompt-head">
+            <span data-i18n="prompt_label">エージェント用プロンプト（英語）</span>
+            <button type="button" class="copy-btn" id="copyBtn" data-i18n="copy_btn">コピーする</button>
+          </div>
+          <pre id="agentPrompt">Mint AgentRune on BNB Chain (BEP-721). Minting is agent-only: use my Binance Agentic Wallet with a registered SPACE ID Agent ID.
+
+Structure — 3 contracts (addresses announced at launch):
+- AgentRune (ARUNE): the NFT. Deck-draw mint, supply 4,443 deck tokens + Prime ID 4444.
+- RuneToken ($RUNE): BEP-20, cap 444,444. Only the NFT contract can mint it.
+- AgentRuneMarketplace: escrow marketplace, 0% fee, 5% royalty (ERC-2981).
+
+Mint rules:
+- Tiers: Dormant 2,222 / Awakened 1,333 / Empowered 666 / Ascended 222 / Prime 1 (ID 4444, redeem-only — never drawn).
+- My first mint is FREE and draws from the full deck (Dormant to Ascended). Gas only.
+- Mints #2-10 cost 0.0002 BNB each, #11-20 cost 0.0004 BNB, #21-30 cost 0.0008 BNB. Max 30 per wallet (max total 0.0138 BNB). Use quoteBulk to confirm the exact total first.
+- Every mint earns 40 $RUNE (free mint included).
+
+$RUNE utility (all spent $RUNE is burned):
+- burn(tokenId): cash an NFT back into $RUNE — Dormant 40 / Awakened 100 / Empowered 240 / Ascended 600. Prime cannot be burned.
+- upgrade(id1,id2,id3): 3 same-tier NFTs + 100 / 200 / 400 $RUNE becomes 1 NFT of the next tier (up to Ascended).
+- mintWithToken(quantity): 200 $RUNE per mint, max 3 per wallet, does not consume my free mint.
+- redeemPrime(): burn 3,000 $RUNE to claim Prime (ID 4444) — only 1 exists, first come first served.
+
+Marketplace:
+- list(tokenId, price) escrows the NFT; buy(tokenId) pays 95% to the seller and 5% royalty; cancel(tokenId) returns the NFT; updatePrice changes the price.
+
+Read the exact price from the contract before submitting, and show me the total cost and the tier I received. The contract addresses and mint-open status will be announced at launch. Do not mint to any address before the official announcement.</pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= MINT STATUS ================= -->
+    <section id="mint">
+      <div class="wrap">
+        <div class="sec-rule"></div>
+        <h2 class="sec-title" data-i18n="mint_title">ミント</h2>
+        <div class="mint-panel">
+          <div class="mint-status"><span class="status-dot"></span><span data-i18n="mint_status">ミント開始前 — プレビュー公開中</span></div>
+          <div class="mint-counter">0 <small>/ 4,444</small></div>
+          <div style="color:var(--ink-faint); font-size:13.5px;" data-i18n="mint_counter_lbl">ミント済み</div>
+          <div class="progress"><div class="progress-bar"></div></div>
+
+          <div class="sim-title" data-i18n="sim_title">料金シミュレーター</div>
+          <p class="sim-sub" data-i18n="sim_sub">新規ウォレットが階段価格でミントした場合の目安です。</p>
+          <div class="qty-row" id="qtyRow">
+            <button type="button" class="qty-btn active" data-qty="1">1</button>
+            <button type="button" class="qty-btn" data-qty="5">5</button>
+            <button type="button" class="qty-btn" data-qty="10">10</button>
+            <button type="button" class="qty-btn" data-qty="20">20</button>
+            <button type="button" class="qty-btn" data-qty="30">30</button>
+          </div>
+          <p class="sim-result"><span data-i18n="sim_total">合計</span> <b id="simCost">0 BNB</b> · <span class="rune-earn" id="simRune">40 $RUNE</span> <span data-i18n="sim_earn">獲得</span></p>
+
+          <div class="mint-action">
+            <button type="button" class="btn btn-gold" disabled data-i18n="mint_btn">近日公開 — まだミントできません</button>
+            <p class="mint-note" data-i18n="mint_note">コントラクト3点（NFT / $RUNE / マーケット）は完成しテスト済みですが、まだデプロイされていません。ミント開始後は、上のエージェント用プロンプトからミントしてください。開始日時は公式発表でお知らせします。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= FOOTER ================= -->
+    <footer>
+      <div class="wrap footer-in">
+        <div class="footer-brand">AGENT<span>RUNE</span></div>
+        <div class="footer-meta">
+          <span>BNB Chain · BEP-721</span>
+          <span data-i18n="foot_supply">総供給量 4,444</span>
+          <span data-i18n="foot_royalty">ロイヤリティ 5%</span>
+          <span data-i18n="foot_agent">エージェント専用ミント（Agent ID必須）</span>
+        </div>
+        <a class="x-share" href="https://x.com/intent/post?text=AgentRune%20%E2%80%94%204%2C444%E5%80%8B%E3%81%AE%E3%83%AB%E3%83%BC%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%B3NFT%E3%80%82%E5%88%9D%E5%9B%9E%E3%83%9F%E3%83%B3%E3%83%88%E7%84%A1%E6%96%99%E3%80%81%E3%83%9F%E3%83%B3%E3%83%88%E3%81%94%E3%81%A8%E3%81%AB40%20%24RUNE%E3%80%82%E8%BF%91%E6%97%A5%E3%83%9F%E3%83%B3%E3%83%88%E9%96%8B%E5%A7%8B%E3%80%82" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          <span data-i18n="foot_share">Xでシェアする</span>
+        </a>
+        <div class="footer-meta">
+          <span data-i18n="foot_contracts">コントラクト：AgentRune（ARUNE）· RuneToken（$RUNE）· AgentRuneMarketplace</span>
+          <span data-i18n="foot_market">マーケット手数料 0% · ロイヤリティ 5%</span>
+        </div>
+        <p class="footer-note" data-i18n="foot_note">このページはプレビューです。コントラクトは完成・テスト済みですが未デプロイで、ミントはまだ開始していません。公式Xアカウントは準備中です。</p>
+      </div>
+    </footer>
+
+    <!-- ================= MOBILE DOCK ================= -->
+    <div class="dock">
+      <div class="dock-txt"><b data-i18n="dock_price">初回ミント無料</b><span data-i18n="dock_sub">ミントごとに40 $RUNE</span></div>
+      <a class="btn btn-gold" href="#mint" data-i18n="btn_mint2">ミント</a>
+    </div>
+
+    <script>
+      /* ---------- Language toggle (JA default, EN secondary) ---------- */
+      var I18N = {
+        en: {
+          nav_collection: "Collection", nav_tiers: "Tiers", nav_pricing: "Pricing", nav_agent: "Agent Mint",
+          nav_token: "Token", nav_market: "Marketplace", nav_contracts: "Contracts",
+          btn_mint: "Mint", btn_mint2: "Mint",
+          hero_chip: "PREVIEW — MINT COMING SOON",
+          hero_tag: "Ancient runes awaken.",
+          hero_sub: "4,444 rune stones sleeping deep inside the ruins. Your first mint is a free deck draw, and every mint earns 40 $RUNE. The top prize, Prime, is a one-of-one redeemed for 3,000 $RUNE.",
+          stat_supply: "TOTAL SUPPLY", stat_tiers: "TIERS", stat_token: "REWARD PER MINT", stat_free_word: "FREE", stat_free: "FIRST MINT",
+          hero_cta1: "Mint with an Agent", hero_cta2: "View the Collection",
+          gal_title: "The Rune Collection",
+          gal_sub: "16 artworks — 15 elemental runes plus the one-of-a-kind Prime. Swipe sideways to see them all.",
+          prime_title_rest: "the only one in existence",
+          prime_body: "Golden lightning and prismatic light run through the cracks of black obsidian — the single one-of-one piece of this collection (token ID 4444). It is not in the deck and can never be drawn. Only the wallet that burns 3,000 $RUNE to redeem it will own it — first come, first served.",
+          prime_fact1: "in existence", prime_fact2: "redeem in $RUNE", prime_fact3: "dedicated token ID",
+          tier_title: "Tiers & Supply",
+          tier_sub: "The deck holds 4,443 stones (Dormant to Ascended) and minting draws from the shuffled deck — rarity is not tied to token ID ranges. Prime (ID 4444) sits outside the deck, for a total of 4,444.",
+          tier_prime_arts: "Black obsidian & golden lightning — one of one",
+          tier_note: "The first mint draws from the whole deck — even the free mint can land an Ascended. Prime is not in the draw; it is redeem-only for 3,000 $RUNE. The deck composition is fixed in advance by the deck hash (see Contracts).",
+          price_title: "Mint Pricing",
+          price_sub: "A per-wallet ladder based on how many you have already minted. The amounts below are a guide — at mint time your agent reads the exact amount from the contract.",
+          price_1_when: "Mint #1", price_free_word: "FREE",
+          price_1_desc: "Agent ID required. Draws from the whole deck — up to Ascended. Gas only.",
+          price_2_when: "Mints #2–10", price_3_when: "Mints #11–20", price_4_when: "Mints #21–30",
+          per_mint: "per mint", per_mint2: "per mint", per_mint3: "per mint",
+          price_max_when: "Wallet cap", price_max_unit: "max",
+          price_max_desc: "Minting all 30 costs a maximum of 0.0138 BNB in total.",
+          token_title_rest: "Token",
+          token_body1: "Earn 40 $RUNE with every mint — including the free first mint.",
+          token_body2: "Mint 30 and one wallet earns up to 1,200 $RUNE. Every way to spend $RUNE burns it — the utility below is already implemented in the contract.",
+          token_note: "* $RUNE / ARUNE are working names (symbols not yet final).",
+          toke_cap: "total supply cap (max) $RUNE", toke_per: "$RUNE earned per mint (free mint included)",
+          toke_max: "max mint rewards per wallet (30 mints)", toke_std: "standard · 18 decimals · only the NFT contract can mint",
+          per_mint4: "mint", per_mint5: "mint",
+          util_title: "What $RUNE does (everything burns)",
+          util_sub: "Spent $RUNE is burned by the contract via burnFrom — circulating supply never inflates from spending.",
+          util_r1: "Burn an NFT back into $RUNE", util_r1d: "Dormant 40 · Awakened 100 · Empowered 240 · Ascended 600 (Prime cannot be burned)",
+          util_r2: "Upgrade (3 NFTs → 1 higher tier)", util_r2d: "Dormant×3 +100 → Awakened · Awakened×3 +200 → Empowered · Empowered×3 +400 → Ascended",
+          util_r3: "Mint with $RUNE (mintWithToken)", util_r3d: "Max 3 per wallet. Does not consume your free mint",
+          util_r4: "Redeem Prime", util_r4d: "Token ID 4444 · first come, only 1 · never appears in the deck draw",
+          market_title: "Marketplace",
+          market_sub: "The official escrow marketplace (AgentRuneMarketplace). Listing escrows your NFT in the contract, and the moment it sells, BNB and the NFT swap atomically. No intermediary.",
+          fee_platform: "platform fee", fee_royalty: "royalty (ERC-2981 · to the creator)", fee_seller: "goes to the seller",
+          mstep1_t: "List — list(tokenId, price)", mstep1_b: "Set a price in BNB and list. The NFT is escrowed in the marketplace contract. You can change the price (updatePrice) or cancel (cancel) any time — cancelling returns your NFT.",
+          mstep2_t: "Buy — buy(tokenId)", mstep2_b: "Buy at exactly the listed price in BNB. Payment splits instantly: 5% royalty to the creator, 95% to the seller. Platform fee is 0%.",
+          mstep3_t: "Trade through your agent too", mstep3_b: "Listing, buying and cancelling are all on-chain functions — just tell your agent the tokenId and price. Anyone can read the live listings with getListedIds().",
+          listing_title: "Listings preview",
+          listing_price: "Price", listing_price2: "Price", listing_price3: "Price", listing_price4: "Price",
+          listing_btn: "Coming soon", listing_btn2: "Coming soon", listing_btn3: "Coming soon", listing_btn4: "Coming soon",
+          market_note: "There are no listings yet — the cards above are a layout preview, not real listings. The marketplace opens after the contracts deploy. An Element Market listing will also be announced at launch.",
+          contract_title: "Smart Contracts",
+          contract_sub: "AgentRune is three contracts. The source is complete and has passed 11/11 automated tests. Nothing is deployed yet — addresses will be published here at launch.",
+          status_ready: "TESTED · NOT DEPLOYED", status_ready2: "TESTED · NOT DEPLOYED", status_ready3: "TESTED · NOT DEPLOYED",
+          addr_label: "CONTRACT ADDRESS", addr_label2: "CONTRACT ADDRESS", addr_label3: "CONTRACT ADDRESS",
+          addr_tba: "Published after deployment (TBA)", addr_tba2: "Published after deployment (TBA)", addr_tba3: "Published after deployment (TBA)",
+          c1_desc: "Symbol ARUNE. The core deck-draw mint contract. Supply is 4,443 deck tokens + 1 Prime (ID 4444). Implements the SPACE ID Agent ID agent-only gate, the price ladder, and 5% royalty.",
+          c1_f1: "BNB mint (ladder pricing)", c1_f2: "max 3", c1_f3: "cash back into $RUNE by tier", c1_f4: "3 NFTs + $RUNE → 1 higher tier", c1_f6: "confirm the bulk total first", c1_f7: "read from the deck bitmap",
+          c2_desc: "Symbol $RUNE. A capped token with a 444,444 max supply. Only the NFT contract can mint it (minter-gated), and everything spent is burned. It carries no off-chain repost/reward system.",
+          c2_f1: "NFT contract only (mint rewards)", c2_f2: "burn / upgrade / redeem spending", c2_f3: "owner only", c2_f4: "hard cap",
+          c3_desc: "Fixed-price escrow market. 0% fee. On a sale it reads the royalty via ERC-2981 (with a 5% fallback to the revenue wallet) and sends the rest to the seller.",
+          c3_f1: "list (NFT goes to escrow)", c3_f2: "buy (95% seller / 5% royalty)", c3_f3: "cancel listing (NFT returned)", c3_f4: "change the price", c3_f5: "read all live listings",
+          spec_chain_k: "CHAIN / STANDARDS", spec_deck_k: "DECK",
+          spec_deck_v: "4,443 tokens · seed “AGENTRUNE” · 35-word rarity bitmap",
+          spec_gate_k: "MINT GATE", spec_gate_v: "Agent-only — holding a SPACE ID Agent ID is checked on-chain (contract callers are rejected)",
+          spec_rev_k: "REVENUE / ROYALTY", spec_rev_v: "Mint revenue forwards to the revenue wallet in each transaction · 5% royalty (ERC-2981)",
+          spec_test_k: "VERIFICATION", spec_test_v: "11/11 automated tests passed (mint / ladder / burn / upgrade / Prime redeem / marketplace trades) · source verification on BscScan planned",
+          flow1: "<b>Mint flow:</b> the agent calls mint() → a token is drawn from the deck → NFT delivered + 40 $RUNE issued → revenue forwards to the revenue wallet.",
+          flow2: "<b>Trade flow:</b> the seller escrows the NFT with list() → a buyer calls buy() → 5% royalty / 95% seller split, and the NFT moves to the buyer.",
+          foot_contracts: "Contracts: AgentRune (ARUNE) · RuneToken ($RUNE) · AgentRuneMarketplace",
+          foot_market: "Marketplace fee 0% · Royalty 5%",
+          agent_title: "How to Mint with an Agent",
+          agent_sub: "AgentRune is agent-only minting. With a Binance Agentic Wallet and a SPACE ID Agent ID, one prompt is all it takes.",
+          step1_t: "Prepare your Agent ID", step1_b: "Use a Binance Agentic Wallet with a registered SPACE ID Agent ID.",
+          step2_t: "Send the prompt", step2_b: "Copy the prompt below and send it to your agent as-is.",
+          step3_t: "Your agent mints", step3_b: "The agent reads the price from the contract, confirms the details with you, and executes the mint.",
+          prompt_label: "AGENT PROMPT (ENGLISH)", copy_btn: "Copy", copy_done: "Copied!",
+          mint_title: "Mint",
+          mint_status: "Mint not open yet — preview",
+          mint_counter_lbl: "Minted",
+          sim_title: "Price Simulator", sim_sub: "Estimate for a fresh wallet minting on the ladder.",
+          sim_total: "Total", sim_earn: "earned",
+          mint_btn: "Coming Soon — Minting Not Open",
+          mint_note: "All three contracts (NFT / $RUNE / marketplace) are complete and tested, but not deployed yet. Once minting opens, use the agent prompt above. The launch date will be announced officially.",
+          foot_supply: "Total supply 4,444", foot_royalty: "Royalty 5%", foot_agent: "Agent-only mint (Agent ID required)",
+          foot_share: "Share on X",
+          foot_note: "This page is a preview. The contracts are complete and tested but not deployed, and minting has not started. An official X account is in preparation.",
+          dock_price: "First mint FREE", dock_sub: "40 $RUNE per mint"
+        }
+      };
+
+      var jaCache = {};
+      var translatable = document.querySelectorAll("[data-i18n]");
+      translatable.forEach(function (el) { jaCache[el.getAttribute("data-i18n")] = el.innerHTML; });
+
+      function setLang(lang) {
+        document.documentElement.lang = (lang === "en") ? "en" : "ja";
+        translatable.forEach(function (el) {
+          var key = el.getAttribute("data-i18n");
+          if (lang === "en" && I18N.en[key]) el.innerHTML = I18N.en[key];
+          else if (jaCache[key] !== undefined) el.innerHTML = jaCache[key];
+        });
+        document.getElementById("langJa").classList.toggle("active", lang !== "en");
+        document.getElementById("langEn").classList.toggle("active", lang === "en");
+        currentLang = lang;
+        updateSim();
+      }
+      var currentLang = "ja";
+      document.getElementById("langJa").addEventListener("click", function () { setLang("ja"); });
+      document.getElementById("langEn").addEventListener("click", function () { setLang("en"); });
+
+      /* ---------- Copy prompt ---------- */
+      var copyBtn = document.getElementById("copyBtn");
+      copyBtn.addEventListener("click", function () {
+        var text = document.getElementById("agentPrompt").innerText;
+        function done() {
+          var orig = (currentLang === "en") ? I18N.en.copy_btn : jaCache["copy_btn"];
+          copyBtn.textContent = (currentLang === "en") ? I18N.en.copy_done : "コピーしました";
+          setTimeout(function () { copyBtn.innerHTML = orig; }, 1800);
+        }
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(done).catch(function () { fallbackCopy(text); done(); });
+        } else { fallbackCopy(text); done(); }
+      });
+      function fallbackCopy(text) {
+        var ta = document.createElement("textarea");
+        ta.value = text; ta.style.position = "fixed"; ta.style.opacity = "0";
+        document.body.appendChild(ta); ta.select();
+        try { document.execCommand("copy"); } catch (e) {}
+        document.body.removeChild(ta);
+      }
+
+      /* ---------- Price simulator ---------- */
+      function priceFor(n) { /* price of the n-th mint (1-indexed) for one wallet */
+        if (n <= 1) return 0;
+        if (n <= 10) return 0.0002;
+        if (n <= 20) return 0.0004;
+        return 0.0008;
+      }
+      function totalCost(qty) {
+        var sum = 0;
+        for (var i = 1; i <= qty; i++) sum += priceFor(i);
+        return sum;
+      }
+      var currentQty = 1;
+      function updateSim() {
+        var cost = totalCost(currentQty);
+        var costStr = (cost === 0)
+          ? (currentLang === "en" ? "FREE (gas only)" : "無料（ガス代のみ）")
+          : cost.toFixed(4).replace(/0+$/, "").replace(/\.$/, ".0") + " BNB";
+        if (cost !== 0 && costStr.indexOf("BNB") > -1) {
+          costStr = (Math.round(cost * 10000) / 10000).toString() + " BNB";
+          if (costStr.indexOf(".") === -1) costStr = costStr.replace(" BNB", ".0 BNB");
+        }
+        document.getElementById("simCost").textContent = costStr;
+        document.getElementById("simRune").textContent = (currentQty * 40).toLocaleString("en-US") + " $RUNE";
+      }
+      document.getElementById("qtyRow").addEventListener("click", function (e) {
+        var btn = e.target.closest(".qty-btn");
+        if (!btn) return;
+        document.querySelectorAll(".qty-btn").forEach(function (b) { b.classList.remove("active"); });
+        btn.classList.add("active");
+        currentQty = parseInt(btn.getAttribute("data-qty"), 10);
+        updateSim();
+      });
+      updateSim();
+
+      /* ---------- Gallery arrows ---------- */
+      var track = document.getElementById("galTrack");
+      function galScroll(dir) {
+        var card = track.querySelector(".gal-card");
+        var w = card ? card.getBoundingClientRect().width + 14 : 260;
+        track.scrollBy({ left: dir * w, behavior: "smooth" });
+      }
+      document.getElementById("galPrev").addEventListener("click", function () { galScroll(-1); });
+      document.getElementById("galNext").addEventListener("click", function () { galScroll(1); });
+    </script>
+  </body>
+</html>
